@@ -1,6 +1,7 @@
 import numpy as np
 import networkx as nx
 import linkpred
+import collections
 
 """
 The linkpred module makes it (relatively) easy to calculate the metrics we want, without explicitly creating 
@@ -43,4 +44,48 @@ adamicAdar_results = adamicAdar.predict()
 # commonNeighbors measure
 commonNeighbors = linkpred.predictors.CommonNeighbours(trainPeriodGraph, excluded = trainPeriodGraph.edges())
 commonNeighbors_results = commonNeighbors.predict(alpha = 0)
+
+# converting the metrics into lists. We will feed them into pandas data frames later
+adamicAdarList = list(adamicAdar_results.values())
+commonNeighbors = list(commonNeighbors_results.values())
+
+# Create a dictionary that represents the testPeriodGraph
+testPeriodDict = collections.defaultdict(list)
+for node1, node2 in testPeriodGraph.edges():
+    testPeriodDict[node1].append(node2)
+
+# Creating the labels (0 or 1). If a pair for which we calculated a metric does not exist in 
+# the testing period, it takes a 0, otherwise an 1. The "labels" list will be converted to 
+# a column in the pandas data frame later, along with the calculated metrics.
+labels = []
+for u, v in adamicAdar_results.keys():   
+    if (v in testPeriodDict[u]) or (u in testPeriodDict[v]):
+        labels.append(1)
+    else:
+        labels.append(0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
