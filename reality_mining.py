@@ -35,9 +35,17 @@ testPeriodGraph = nx.Graph(testPeriod[:,[0,1]].tolist())
 #l = p.likely_pairs(k = 2)
 #trainPeriodNeighbors = nx.Graph(l) 
 
-# Compute the Adamic Adar measure. This function finds for each node its 2-size neighborhood and
+# This function finds for each node its 2-size neighborhood and
 # calculates the measure for all pairs of nodes in the 2-size neighborhood. 
 # It excludes the nodes that belong in the train period by using the 'excluded' argument
+"""
+Calculate metrics for each node and its 2-size neighborhood. The functions exclude the nodes
+that belong in the train period ('excluded' argument).
+
+Some of those measures will be very slow for large networks, due to nested for loops.
+"""
+
+# Adamic Adar
 adamicAdar = linkpred.predictors.AdamicAdar(trainPeriodGraph, excluded = trainPeriodGraph.edges())
 adamicAdar_results = adamicAdar.predict()
 
@@ -45,9 +53,35 @@ adamicAdar_results = adamicAdar.predict()
 commonNeighbors = linkpred.predictors.CommonNeighbours(trainPeriodGraph, excluded = trainPeriodGraph.edges())
 commonNeighbors_results = commonNeighbors.predict(alpha = 0)
 
+# Rooted PageRank
+rootedPageRank = linkpred.predictors.RootedPageRank(trainPeriodGraph, excluded = trainPeriodGraph.edges())
+rootedPageRank_results = rootedPageRank.predict(weight = None, k = 2)
+
+# Jaccard coefficient
+jaccard = linkpred.predictors.Jaccard(trainPeriodGraph, excluded = trainPeriodGraph.edges())
+jaccard_results = jaccard.predict()
+
+# Pearson coefficient
+pearson = linkpred.predictors.Pearson(trainPeriodGraph, excluded = trainPeriodGraph.edges())
+pearson_results = pearson.predict()
+
+# Resource Allocation
+resAllocation = linkpred.predictors.ResourceAllocation(trainPeriodGraph, excluded = trainPeriodGraph.edges())
+resAllocation_results = resAllocation.predict()
+
+# Association Strength
+assocStrength = linkpred.predictors.AssociationStrength(trainPeriodGraph, excluded = trainPeriodGraph.edges())
+assocStrength_results = assocStrength.predict()
+
 # converting the metrics into lists. We will feed them into pandas data frames later
 adamicAdarList = list(adamicAdar_results.values())
 commonNeighbors = list(commonNeighbors_results.values())
+rootedPageRankList = list(rootedPageRank_results.values())
+jaccardList = list(jaccard_results.values())
+pearsonList = list(pearson_results.values())
+resAllocationList = list(resAllocation_results.values())
+assocStrength = list(assocStrength_results.values())
+
 
 # Create a dictionary that represents the testPeriodGraph
 testPeriodDict = collections.defaultdict(list)
