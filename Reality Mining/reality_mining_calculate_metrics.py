@@ -129,7 +129,9 @@ for u, v in adamicAdar_results.keys():
     else:
         labels.append(0)
 
-
+# Also save the labels
+with open('Reality Mining/labels_reality_mining.pkl', 'wb') as y:
+    pickle.dump(labels, y)
 
 
 
