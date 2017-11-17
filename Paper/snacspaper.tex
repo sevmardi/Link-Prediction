@@ -1,0 +1,155 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Social Network Analysis for Computer Scientists
+% Course paper template (modified version of ACM Proceedings template)
+% Frank W. Takes (ftakes@liacs.nl)
+% http://liacs.leidenuniv.nl/~takesfw/SNACS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% THIS IS SIGPROC-SP.TEX - VERSION 3.1
+% WORKS WITH V3.2SP OF ACM_PROC_ARTICLE-SP.CLS
+% APRIL 2009
+%
+% It is an example file showing how to use the 'acm_proc_article-sp.cls' V3.2SP
+% LaTeX2e document class file for Conference Proceedings submissions.
+% ----------------------------------------------------------------------------------------------------------------
+% This .tex file (and associated .cls V3.2SP) *DOES NOT* produce:
+%       1) The Permission Statement
+%       2) The Conference (location) Info information
+%       3) The Copyright Line with ACM data
+%       4) Page numbering
+% ---------------------------------------------------------------------------------------------------------------
+% It is an example which *does* use the .bib file (from which the .bbl file
+% is produced).
+% REMEMBER HOWEVER: After having produced the .bbl file,
+% and prior to final submission,
+% you need to 'insert'  your .bbl file into your source .tex file so as to provide
+% ONE 'self-contained' source file.
+%
+% For tracking purposes - this is V3.1SP - APRIL 2009
+
+\documentclass{acm_proc_article-sp}
+
+\usepackage{url}
+
+\begin{document}
+
+\title{Course Project Title}
+\subtitle{Social Network Analysis for Computer Scientists --- Course Project Paper}
+
+\numberofauthors{2} %  in this sample file, there are a *total*
+% of EIGHT authors. SIX appear on the 'first-page' (for formatting
+% reasons) and the remaining two appear in the \additionalauthors section.
+%
+\author{
+% You can go ahead and credit any number of authors here,
+% e.g. one 'row of three' or two rows (consisting of one row of three
+% and a second row of one, two or three).
+%
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+%
+% 1st. author
+\alignauthor
+	Name One\\
+	\affaddr{LIACS, Leiden University}\\
+	\email{sXXXXX@umail.leidenuniv.nl}
+% 2nd. author
+\alignauthor
+	Name Two\\
+	\affaddr{LIACS, Leiden University}\\
+	\email{sXXXXX@umail.leidenuniv.nl}
+}
+
+\permission{This paper is the result of a student course project, and is based on methods and techniques suggested in \cite{bowman:reasoning, clark:pct, braams:babel, herlihy:methodology}.  % NOTE for SNACS: replace these citations with the papers you studied!
+Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice on the first page. }
+\conferenceinfo{SNACS '17}{Social Network Analysis for Computer Scientists, Master CS, Leiden University (\url{liacs.leidenuniv.nl/~takesfw/SNACS}).}
+
+\date{30 July 1999}
+% Just remember to make sure that the TOTAL number of authors
+% is the number that will appear on the first page PLUS the
+% number that will appear in the \additionalauthors section.
+
+\maketitle
+\begin{abstract}
+Abstract.
+\end{abstract}
+
+% A category with the (minimum) three required fields
+\category{H.4}{Information Systems Applications}{Miscellaneous}
+%A category including the fourth, optional field follows...
+\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+
+\terms{Theory}
+
+\keywords{ACM proceedings, \LaTeX, text tagging} % NOT required for Proceedings
+
+\section{Introduction}
+%In this paper we are going to try to share our own contribution and important factors for link prediction in all kinds of networks. 
+
+One of the main ideas behind link prediction is that it offers several ways in which one can study networks of any kind in which data scientists, software engineers and researchers could greatly benefit from. Social networks are a popular way to model the interactions among people in a group or community. Their connections can be visualized as a graph, where a vertex corresponds to a person in a group and an edge represents some form of association between the corresponding persons.
+
+Organizations, such as Amazon, can extract information based on raw data in order to predict what the customer might actually buy or find interesting. Another example would be the professional social-media platform, Linked-in.  Based on incoming data they would be able to, for instance predict your next connection; link back jobs which are relevant to you; link contents/articles based on your connections, interests, and things you read on the web. Similarly, security corporate companies could more precisely focus their efforts based on probable relationships in malicious networks that have heretofore gone unobserved, and researchers can easily adapt link prediction methods to identify links that are surprising given their surrounding network, or links that may not exist at all \cite{Lichtenwalter:2010:NPM:1835804.1835837}. 
+
+That being said, links or associations are usually based on someone's behavior and interests. In social networks however, objects are dynamic given that the number of edges and nodes are changing continuously. Getting a hold of those dynamics [number of nodes and edges] is one of the fundamental problems in social network analysis. One of the essential question(s) which we are going to cover in this paper is, given a network at time $t$, accurately predict the links that are going to form at a future time $t'$. This is know as the link prediction problem.
+
+In this paper, we approach the problem of link prediction using supervised learning \cite{Fire2013}, \cite{Hasan06linkprediction}, \cite{Lichtenwalter:2010:NPM:1835804.1835837}, \cite{Wang:2007:LPM:1441428.1442084}. Unsupervised techniques have also been used. The main difference between the two is that in the unsupervised case, we calculate metrics that individually provide predictions of whether a link will form or not. Supervised learning employs a more sophisticated framework where each of these metrics could be considered as an input to a machine learning model.
+
+%We also learned other papers are in existence in regards of supervised learning which cover the matters of link prediction problem such as in [2] and [17] in which the authors merely cover the results of the test set(s) being unbalanced filled with negative instances. Our main contributing will mainly focus on this paper [1] and the methods and techniques in which we can, additionally, contribute to this paper. 
+
+%In link prediction, we need to transform networks in actual data sets to apply machine learning models. Due to the way of constructing those data sets, there is a great imbalance between negat Data sets constructed from networks Due to the high class imbalance in data sets constructed from networks 
+
+
+The main purpose of this paper is to compare the methods described in \cite{Hasan06linkprediction} and \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Both papers consider collaboration networks of co-authors on which several machine learning models are applied in order to predict future links (collaborations) between co-authors. Under sampling is used in both papers in order to solve the problem of class imbalance and decrease the size of the training sets. Additionally, in \cite{Lichtenwalter:2010:NPM:1835804.1835837}, the training set is constructed by considering the $n$-neighborhood of each node. Moreover, it is proposed to use a specific type of decision trees, called Hellinger trees, applied in the original distribution of the data, that is without employing under sampling. Although this recommendation is given, the authors do not provide results of this method. Thus, the aim of this paper is to first compare the methods described in \cite{Hasan06linkprediction} and \cite{Lichtenwalter:2010:NPM:1835804.1835837}, and second, apply Hellinger trees in the original data distribution.
+
+ 
+%Our part of the research has the following contributions:
+%1- We will end-up explaining different concept of algorithms and machine learning tack ticks in order to perform (link-predict) the next link between to objects. 
+%2- We will spend some time experimenting with datasets to learn more about algorithms and perhaps finding differences or comparison between number of algorithms .   
+
+The paper is structured as follows. In Section 2, we formalize the link prediction problem. Specifically, we discuss the transformation of a network to an ordinary data set, and the class imbalance problem. Related work is provided in Section 3. In Section 4, we describe in detail the methods compared in this paper. Section 5 describes the data sets in which the experiments and results of Section 6 are based on. Finally, we conclude with Section 6.  
+
+%In the following sections we will be guiding you through number of problem sets; working with datasets; talking about finding similar or relevant papers; explaining or learning about different algorithms; Experiment and sharing results; sharing our thoughts and finishing things up with some discussions and conclusions  
+
+\section{Problem Statement}
+
+Consider at a particular time $t$, an undirected network $G = \langle V,E \rangle$, where $V$ is the set of nodes and $E$ is the set of edges. The goal is to predict the edges that will form in the network at time $t' > t$. As an example, consider a collaboration network of co-authors. Two authors $v$ and $w$ are linked when they have published at least one research paper together. The goal is to predict future connections between co-authors that have not yet collaborated.
+
+In this paper, we approach the problem of link prediction using supervised learning. In this framework, in order to build models with predictive ability, one needs to construct two sets, mainly a \textit{train} and a \textit{test} set. Then, the model learns features and patters from the train set, and it is evaluated on the test set. These two sets form together the \textit{data set}. This set is of the form $(\vec{x},y)$, where $\vec{x}$ indicates the inputs to the model, and $y$ indicates the label, that is whether or not a link is present between two nodes. The model learns from the instances $(\vec{x},y)$ of the train set. In the evaluation phase, we feed the instances $\vec{x}$ of the test set to the trained model, and the output is the predicted label, i.e our prediction of whether or not a link will form between two nodes.
+
+ We face two problems here. First, how to construct the train and test set, and secondly, what are $\vec{x}$, $y$ in our model.
+
+\subsection{Constructing Data Sets}
+The process of constructing the train and test set is described in detail \cite{Hasan06linkprediction}, \cite{Lichtenwalter:2010:NPM:1835804.1835837}. In order to transform the network to a data set, we first choose two adjacent periods, the \textit{train} and \textit{test period}. In the train period, denoted by $[0,t_x]$, we have pairs of authors that are connected, that is, they have written at least one research paper together. The same holds for the test period $[t_{x+1},t_y]$. We construct a new network $G_x = \langle V_x, E_x \rangle$ consisted of all pair of authors that do not share a connection in the train period. We then examine whether or not they co-authored a paper in the test period. If they did, we assign the pair a positive label, and otherwise a negative label. The data set contains $|V_x| \choose 2$ $-E_x$ instances, since we do not account for self-loops, and in undirected networks each pair is recorded once. 
+
+Selecting an appropriate set of features is one of the most important part in supervised learning algorithms \cite{Hasan06linkprediction}. The inputs to the model are selected by calculating topology-based and node-based metrics from $G_x$ that will serve as attributes to the data set. Such metrics include, but not limited to, \textit{common neighbors}, \textit{Jaccard coefficient}, \textit{Adamic Adar}, \textit{preferential attachment}, \textit{Katz} measure, \textit{PropFlow}, \textit{SimRank}, and many others. All these features can be used individually to provide naive predictions. This is sometimes called the unsupervised framework of link prediction. In the supervised case, we use state-of-the-art predictive models such as Neural Networks, Support Vector Machines, Decision Trees, and Random Forests that treat these individual metrics as inputs. The output, or prediction of the model is whether or not a link will form between two specific nodes. 
+
+That being said, we end up with a data set in the standard format $(\vec{x},y)$, where $\vec{x}$ are metrics extracted from $G_x$ and $y$ indicates the label, that is whether or not a pair of nodes is connected or not. 
+
+\subsection{Class Imbalance and Size}
+Although we have constructed the data set, there are two main problems. First, the size of the data set is very large which can make the training process infeasible. For example, consider the relatively small in size \texttt{ca-CondMat} network \cite{Leskovec:2007:GED:1217299.1217301}, consisted of 23133 nodes and 93497 edges. Defining the train period to be two-thirds of the networks' edges, and assuming that all node appear in $V_x$, the resulting data set would be of size $23133 \choose 2$ $ - 62631$, which yields more than 267 million instances. Additionally, the distribution of the classes is highly unbalanced. That is, the amount of instances belonging to the negative class is overwhelmingly greater than the instances of  the positive class. Those two issues make the training process difficult or even impossible. There mainly exist two approaches to solve these problems.
+
+One method consists of under sampling the data set to balance in order to create classes of almost the same size. In this way, the size of the training set decreases, and at the same time we obtain balanced classes in which we can fit ordinary predictive models such as, Decision Trees, Support Vector Machines, Neural Networks etc. Note that many of these models perform poorly in highly unbalanced data. 	 
+
+A second method is proposed in \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Specifically, it is suggested to treat each neighborhood as a separate problem. We define the $n$-neighborhood of a node $v$ as the set of nodes that are 0 to $n$ steps away from $v$. Instead of considering all pairs of nodes to enter the data set, we choose for each node, and for a specified $n$, only those that belong to the $n$-neighborhood of the node. In this way, the size of the data set decreases greatly. Furthermore, it is proposed to implement a particular type of decision trees, called Hellinger trees \cite{Cieslak2012}, \cite{Cieslak2008}, without altering the distribution of the data, that is without under sampling. Hellinger trees use the Hellinger distance as splitting criterion, which is skew insensitive \cite{Cieslak2012}.
+
+
+
+%A solution is proposed in \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Specifically, it is suggested to treat each neighborhood as a separate problem. We define the $n$-neighborhood of a node $v$ as the set of nodes that are 0 to $n$ steps away from $v$. Instead of considering all pairs of nodes to enter the data set, we choose for each node, and for a specified $n$, only those that belong to the $n$-neighborhood of the node. In this way, the size of the data set decreases greatly.
+
+%Although the aforementioned solution mitigates the issue of class imbalance, the problem still persists. There are two approaches to ensure that the predictive model provides sufficiently good results. Since ordinary models such as, for example, Decision Trees perform poorly in highly unbalanced data, the first method consists of under sampling the data set to balance in order to create classes of almost the same size. The second approach \cite{Lichtenwalter:2010:NPM:1835804.1835837}, involves training a particular type of decision trees, called Hellinger trees \cite{Cieslak2012}, \cite{Cieslak2008}, without altering the distribution of the data. The Hellinger distance, which is skew insensitive is used as the splitting criterion \cite{Cieslak2012} in this kind of decision trees.
+
+\section{Related Work}
+
+The link prediction problem was formalized in \cite{Liben-Nowell:2003:LPP:956863.956972}, where there is an extensive analysis of different baseline predictors, applied to co-authorship networks. Nevertheless, state-of-the-art supervised learning models are not studied in this paper. Furthermore, co-authorship networks have been analyzed in \cite{Hasan06linkprediction}, \cite{Pavlov:2007:FEL:2889513.2889517}, and \cite{de2011supervised}, but this time several machine learning algorithms such as Decision Trees, SVM, Neural Networks, and K-Nearest Neighbors are used for prediction. In contrast to \cite{Hasan06linkprediction}, where static, unweighted networks are used, \cite{Pavlov:2007:FEL:2889513.2889517} takes into account the evolution of the network, and the authors of \cite{de2011supervised} analyze a weighted network. Several recommendations and suggestions are presented in \cite{Lichtenwalter:2010:NPM:1835804.1835837}, regarding how to perform link prediction, and how to approach inherent issues such as dealing with class imbalance and huge train sets. 
+
+In the domain of counter-terrorism, link predictions has been studied in \cite{dombroski2003estimating}, \cite{Fire2013}. In the latter paper, several networks are constructed by removing nodes from the original graph, called visible networks. A set of features is calculated from these networks in order to predict links of the original one, using supervised learning models. A more probabilistic approach is taken in \cite{doppa:nips09-wkshp}, where chance-constrain programs are used, and in \cite{NIPS2003_2465}, in which the framework of Relational Markov Network is utilized. Finally, \cite{DBLP:journals/corr/WangXWZ14}, and \cite{Hasan2011} are extensive surveys regarding the different metrics, classification methods, and approaches that have been used for link prediction. 
+
+The main purpose of this paper is to compare the methods applied in \cite{Hasan06linkprediction}, and \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Specifically, in \cite{Hasan06linkprediction}, under sampling of the data is used in order to decrease the size of the training set and apply several machine learning algorithms. On the other hand, in \cite{Lichtenwalter:2010:NPM:1835804.1835837} the problem is approached by considering each neighborhood as a separate problem, as we discussed in the Section 2.2. In the latter paper, both the methods of under sampling to balance, and the use of Hellinger trees are discussed. Nevertheless, the authors chose to provide results only for the under sampling method. Therefore, the purpose is to fill this gap by first, comparing the methods in the two papers, and additionally apply Hellinger trees in the original distribution of the data, without the use of under sampling. Details regarding the two approaches and the differences between them are provided in the next section.
+	
+\bibliographystyle{abbrv}
+\bibliography{snacspaper}  % sigproc.bib is the name of the Bibliography in this case
+
+\end{document}

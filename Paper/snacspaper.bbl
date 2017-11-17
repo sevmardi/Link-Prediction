@@ -1,0 +1,92 @@
+\begin{thebibliography}{10}
+
+\bibitem{Cieslak2008}
+D.~A. Cieslak and N.~V. Chawla.
+\newblock {\em Learning Decision Trees for Unbalanced Data}, pages 241--256.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2008.
+
+\bibitem{Cieslak2012}
+D.~A. Cieslak, T.~R. Hoens, N.~V. Chawla, and W.~P. Kegelmeyer.
+\newblock Hellinger distance decision trees are robust and skew-insensitive.
+\newblock {\em Data Mining and Knowledge Discovery}, 24(1):136--158, Jan 2012.
+
+\bibitem{de2011supervised}
+H.~R. De~S{\'a} and R.~B. Prud{\^e}ncio.
+\newblock Supervised link prediction in weighted networks.
+\newblock In {\em Neural Networks (IJCNN), The 2011 International Joint
+  Conference on}, pages 2281--2288. IEEE, 2011.
+
+\bibitem{dombroski2003estimating}
+M.~Dombroski, P.~Fischbeck, K.~Carley, et~al.
+\newblock Estimating the shape of covert networks.
+\newblock In {\em Proceedings of the 8th International Command and Control
+  Research and Technology Symposium}, 2003.
+
+\bibitem{doppa:nips09-wkshp}
+J.~Doppa, J.~Yu, P.~Tadepalli, and L.~Getoor.
+\newblock Chance-constrained programs for link prediction.
+\newblock In {\em NIPS Workshop on Analyzing Networks and Learning with
+  Graphs}, 2009.
+
+\bibitem{Fire2013}
+M.~Fire, R.~Puzis, and Y.~Elovici.
+\newblock {\em Link Prediction in Highly Fractional Data Sets}, pages 283--300.
+\newblock Springer New York, New York, NY, 2013.
+
+\bibitem{Hasan06linkprediction}
+M.~A. Hasan, V.~Chaoji, S.~Salem, and M.~Zaki.
+\newblock Link prediction using supervised learning.
+\newblock In {\em In Proc. of SDM 06 workshop on Link Analysis,
+  Counterterrorism and Security}, 2006.
+
+\bibitem{Hasan2011}
+M.~A. Hasan and M.~J. Zaki.
+\newblock {\em A Survey of Link Prediction in Social Networks}, pages 243--275.
+\newblock Springer US, Boston, MA, 2011.
+
+\bibitem{Leskovec:2007:GED:1217299.1217301}
+J.~Leskovec, J.~Kleinberg, and C.~Faloutsos.
+\newblock Graph evolution: Densification and shrinking diameters.
+\newblock {\em ACM Trans. Knowl. Discov. Data}, 1(1), Mar. 2007.
+
+\bibitem{Liben-Nowell:2003:LPP:956863.956972}
+D.~Liben-Nowell and J.~Kleinberg.
+\newblock The link prediction problem for social networks.
+\newblock In {\em Proceedings of the Twelfth International Conference on
+  Information and Knowledge Management}, CIKM '03, pages 556--559, New York,
+  NY, USA, 2003. ACM.
+
+\bibitem{Lichtenwalter:2010:NPM:1835804.1835837}
+R.~N. Lichtenwalter, J.~T. Lussier, and N.~V. Chawla.
+\newblock New perspectives and methods in link prediction.
+\newblock In {\em Proceedings of the 16th ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining}, KDD '10, pages 243--252, New York,
+  NY, USA, 2010. ACM.
+
+\bibitem{Pavlov:2007:FEL:2889513.2889517}
+M.~Pavlov and R.~Ichise.
+\newblock Finding experts by link prediction in co-authorship networks.
+\newblock In {\em Proceedings of the 2Nd International Conference on Finding
+  Experts on the Web with Semantics - Volume 290}, FEWS'07, pages 42--55,
+  Aachen, Germany, Germany, 2007. CEUR-WS.org.
+
+\bibitem{NIPS2003_2465}
+B.~Taskar, M.~fai Wong, P.~Abbeel, and D.~Koller.
+\newblock Link prediction in relational data.
+\newblock In S.~Thrun, L.~K. Saul, and P.~B. Sch\"{o}lkopf, editors, {\em
+  Advances in Neural Information Processing Systems 16}, pages 659--666. MIT
+  Press, 2004.
+
+\bibitem{Wang:2007:LPM:1441428.1442084}
+C.~Wang, V.~Satuluri, and S.~Parthasarathy.
+\newblock Local probabilistic models for link prediction.
+\newblock In {\em Proceedings of the 2007 Seventh IEEE International Conference
+  on Data Mining}, ICDM '07, pages 322--331, Washington, DC, USA, 2007. IEEE
+  Computer Society.
+
+\bibitem{DBLP:journals/corr/WangXWZ14}
+P.~Wang, B.~Xu, Y.~Wu, and X.~Zhou.
+\newblock Link prediction in social networks: the state-of-the-art.
+\newblock {\em CoRR}, abs/1411.5118, 2014.
+
+\end{thebibliography}
