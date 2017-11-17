@@ -1,4 +1,5 @@
 import pickle
+import pandas as pd
 
 """
 Read the metrics.
@@ -22,3 +23,17 @@ with open('Reality Mining/resAllocation_reality_mining.pkl', 'rb') as y:
 
 with open('Reality Mining/assocStrength_reality_mining.pkl', 'rb') as y:
     assocStrengthList = pickle.load(y)
+   
+with open('Reality Mining/labels_reality_mining.pkl', 'rb') as y:
+    labels = pickle.load(y)
+    
+dataset = pd.DataFrame(
+    {'Adamic Adar': adamicAdarList,
+     'Common Neighbors': commonNeighborsList,
+     'Rooted PageRank': rootedPageRankList,
+     'Jaccard': jaccardList,
+     'Resource Allocation': resAllocationList,
+     'Association Strength': assocStrengthList,
+     'Labels': labels,
+    })
+3
