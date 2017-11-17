@@ -131,7 +131,7 @@ for u, v in adamicAdar_results.keys():
         labels.append(0)
 
 # Also save the labels
-with open('UC-Irvine/labels.pkl', 'wb') as y:
+with open('UC-Irvine/labels_UC-Irvine.pkl', 'wb') as y:
     pickle.dump(labels, y)
 
 
