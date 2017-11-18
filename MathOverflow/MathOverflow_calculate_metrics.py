@@ -125,14 +125,16 @@ for node1, node2 in testPeriodGraph.edges():
 # a column in the pandas data frame later, along with the calculated metrics.
 labels = []
 datasetPairs = []
-for u, v in adamicAdar_results.keys():   
+for u, v in jaccard_results.keys():   
     datasetPairs.append([u,v])
     if (v in testPeriodDict[u]) or (u in testPeriodDict[v]):
         labels.append(1)
     else:
         labels.append(0)
 
-
+# Also save the labels
+with open('MathOverflow/labels_MathOverflow.pkl', 'wb') as y:
+    pickle.dump(labels, y)
 
 
 

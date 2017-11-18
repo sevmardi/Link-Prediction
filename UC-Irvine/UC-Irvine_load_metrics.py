@@ -25,6 +25,13 @@ with open('UC-Irvine/assocStrength_UC-Irvine.pkl', 'rb') as y:
     
 with open('UC-Irvine/labels_UC-Irvine.pkl', 'rb') as y:
     labels = pickle.load(y)
+
+labels2 = []
+for el in labels:
+    if el == 1:
+        labels2.append("yes")
+    else:
+        labels2.append("no")
     
 dataset = pd.DataFrame(
     {'Adamic Adar': adamicAdarList,
@@ -33,5 +40,5 @@ dataset = pd.DataFrame(
      'Jaccard': jaccardList,
      'Resource Allocation': resAllocationList,
      'Association Strength': assocStrengthList,
-     'Labels': labels,
+     'Labels': labels2,
     })

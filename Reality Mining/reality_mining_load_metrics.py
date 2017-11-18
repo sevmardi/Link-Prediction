@@ -27,6 +27,13 @@ with open('Reality Mining/assocStrength_reality_mining.pkl', 'rb') as y:
 with open('Reality Mining/labels_reality_mining.pkl', 'rb') as y:
     labels = pickle.load(y)
     
+labels2 = []
+for el in labels:
+    if el == 1:
+        labels2.append("yes")
+    else:
+        labels2.append("no")
+
 dataset = pd.DataFrame(
     {'Adamic Adar': adamicAdarList,
      'Common Neighbors': commonNeighborsList,
@@ -34,5 +41,6 @@ dataset = pd.DataFrame(
      'Jaccard': jaccardList,
      'Resource Allocation': resAllocationList,
      'Association Strength': assocStrengthList,
-     'Labels': labels,
-    })
+     'Labels': labels2,
+    })        
+        
