@@ -7,7 +7,7 @@ with open('MathOverflow/adamicAdar_MathOverflow.pkl', 'rb') as y:
 with open('MathOverflow/commonNeighbors_MathOverflow.pkl', 'rb') as y:
     commonNeighborsList = pickle.load(y)
 
-with open('MathOverflow/rootedPageRankList_MathOverflow.pkl', 'rb') as y:
+with open('MathOverflow/rootedPageRank_MathOverflow.pkl', 'rb') as y:
     rootedPageRankList = pickle.load(y)
 
 with open('MathOverflow/jaccard_MathOverflow.pkl', 'rb') as y:
