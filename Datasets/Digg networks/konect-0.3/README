@@ -1,0 +1,70 @@
+What is it?
+===========
+
+This collection of network extraction tools is part of the KONECT
+project: http://konect.uni-koblenz.de
+
+In each subdirectory you can find code to extract one group of datasets,
+usually from one source, and generate a TSV file from it.
+
+If you are looking for the code for a specific network, you can find
+the name of the subirectory in the field "extr" of the metafile,
+which comes with the TSV files you can download from our network pages.
+
+Please note, that not every network has the extraction code publically
+available.
+
+The extraction code is written for POSIX environments (i.e., Linux, Unix, etc.).
+It consists of a makefile, which calls appropriate shell/awk/perl scripts.
+
+Latest Version
+==============
+
+You can find the latest version of this tarball on the following page:
+
+http://konect.uni-koblenz.de/downloads/
+
+Usage
+=====
+
+To build the datasets, execute "make" or "stu" inside the directory.
+The code downloads the datasets from their online sources and converts
+them to the KONECT format. 
+
+
+Dependencies
+============
+
+You may need to install the following additional software packages:
+    - unzip
+    - aria2
+    - tofrodos (providing fromdos/todos)
+
+
+License
+=======
+
+The extraction code is distributed under the terms of the GNU General Public License,
+which you can find provided in the file COPYING.
+
+Internals
+=========
+
+Most datasets are downloaded automatically from the Web. 
+
+Some datasets require own/ to be present in this directory.  The
+directory own/ must link to, mount, or contain the konect/own/
+directory from the KONECT file server.   
+
+Stu
+===
+
+We're converting the directories to Stu.  
+
+Stu targets:
+
+default target:  generate all data.
+
+@deploy:  copy over to konect/.  These copy the relevant files into
+konect/dat/, but usually don't create the symlinks in uni/.
+
