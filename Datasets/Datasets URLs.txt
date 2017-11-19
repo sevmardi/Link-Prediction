@@ -1,0 +1,7 @@
+1) http://networkrepository.com/ia-reality-call.php
+
+2) http://konect.uni-koblenz.de/networks/opsahl-ucsocial
+
+3) http://networkrepository.com/ia-contacts-dublin.php
+
+4) http://snap.stanford.edu/data/sx-mathoverflow.html  <-- There are 3 datasets here. We use the sx-mathoverflow-a2q
