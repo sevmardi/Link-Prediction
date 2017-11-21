@@ -20,7 +20,7 @@ The disadvantage is that linkpred is relatively slow for networks with a lot of 
 that when we calculate a measure, we can then save it into a file and load it when needed.
 """
 
-data = np.loadtxt('UC-Irvine/UC-Irvine.txt',dtype = int)
+data = np.loadtxt('../datasets/UC-Irvine/UC-Irvine.txt',dtype = int)
 data = data[:,[0,1,3]] # We don't need the weight column
 
 # The data set is sorted by timestamp. We extract rows from 1 to 48000 to indicate the train period.

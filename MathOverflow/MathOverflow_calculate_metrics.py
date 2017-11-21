@@ -20,7 +20,7 @@ The disadvantage is that linkpred is relatively slow for networks with a lot of 
 that when we calculate a measure, we can then save it into a file and load it when needed.
 """
 
-data = np.loadtxt('MathOverflow//MathOverflow.txt',dtype = int)
+data = np.loadtxt('../datasets/MathOverflow//MathOverflow.txt',dtype = int)
 
 data = data[np.where(data[:,0] != data[:,1])] # remove self loops
 

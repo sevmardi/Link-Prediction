@@ -20,7 +20,7 @@ The disadvantage is that linkpred is relatively slow for networks with a lot of 
 that when we calculate a measure, we can then save it into a file and load it when needed.
 """
 
-data = np.loadtxt('Reality Mining/RealityMining.txt',dtype = int) # Load the Reality Mining data set
+data = np.loadtxt('../datasets/Reality Mining/RealityMining.txt',dtype = int) # Load the Reality Mining data set
 data = data[:,[0,1,3]] # We don't need the weight column
 
 # The data set is sorted by timestamp. We extract rows from 1 to 900.000 to indicate the train period.
