@@ -22,7 +22,7 @@ with open('UC-Irvine/resAllocation_UC-Irvine.pkl', 'rb') as y:
 
 with open('UC-Irvine/assocStrength_UC-Irvine.pkl', 'rb') as y:
     assocStrengthList = pickle.load(y)
-    
+
 with open('UC-Irvine/labels_UC-Irvine.pkl', 'rb') as y:
     labels = pickle.load(y)
 
@@ -32,7 +32,7 @@ for el in labels:
         labels2.append("yes")
     else:
         labels2.append("no")
-    
+
 dataset = pd.DataFrame(
     {'Adamic Adar': adamicAdarList,
      'Common Neighbors': commonNeighborsList,
@@ -41,4 +41,4 @@ dataset = pd.DataFrame(
      'Resource Allocation': resAllocationList,
      'Association Strength': assocStrengthList,
      'Labels': labels2,
-    })
+     })

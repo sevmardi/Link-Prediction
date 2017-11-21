@@ -1,0 +1,3 @@
+linkpred==0.1
+numpy==1.13.3
+networkx==2.0

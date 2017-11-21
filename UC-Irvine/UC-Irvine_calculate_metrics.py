@@ -5,6 +5,7 @@ import collections
 import pickle
 import os
 
+
 """
 The linkpred module makes it (relatively) easy to calculate the metrics we want, without explicitly creating 
 the train and test sets. For example, the function 
@@ -20,17 +21,17 @@ The disadvantage is that linkpred is relatively slow for networks with a lot of 
 that when we calculate a measure, we can then save it into a file and load it when needed.
 """
 
-data = np.loadtxt('../datasets/UC-Irvine/UC-Irvine.txt',dtype = int)
-data = data[:,[0,1,3]] # We don't need the weight column
+data = np.loadtxt('../datasets/UC-Irvine/UC-Irvine.txt', dtype=int)
+data = data[:, [0, 1, 3]]  # We don't need the weight column
 
 # The data set is sorted by timestamp. We extract rows from 1 to 48000 to indicate the train period.
 # The rest indicate the test period
-trainPeriod = data[:48000,:]  
-testPeriod = data[48000:,:]
+trainPeriod = data[:48000, :]
+testPeriod = data[48000:, :]
 
 # Convert the periods to undirected graphs.
-trainPeriodGraph = nx.Graph(trainPeriod[:,[0,1]].tolist())
-testPeriodGraph = nx.Graph(testPeriod[:,[0,1]].tolist())
+trainPeriodGraph = nx.Graph(trainPeriod[:, [0, 1]].tolist())
+testPeriodGraph = nx.Graph(testPeriod[:, [0, 1]].tolist())
 
 """
 A different way to extract the 2-size neighborhood.
@@ -38,7 +39,7 @@ Don't mind this for now.
 """
 #p = linkpred.predictors.base.Predictor(trainPeriodGraph)
 #l = p.likely_pairs(k = 2)
-#trainPeriodNeighbors = nx.Graph(l) 
+#trainPeriodNeighbors = nx.Graph(l)
 
 """
 Calculate metrics for each node and its 2-size neighborhood. The functions exclude the nodes
@@ -48,19 +49,23 @@ Some of those measures will be very slow for large networks, due to nested for l
 """
 
 # Adamic Adar
-adamicAdar = linkpred.predictors.AdamicAdar(trainPeriodGraph, excluded = trainPeriodGraph.edges())
+adamicAdar = linkpred.predictors.AdamicAdar(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
 adamicAdar_results = adamicAdar.predict()
 
 # commonNeighbors measure
-commonNeighbors = linkpred.predictors.CommonNeighbours(trainPeriodGraph, excluded = trainPeriodGraph.edges())
-commonNeighbors_results = commonNeighbors.predict(alpha = 0)
+commonNeighbors = linkpred.predictors.CommonNeighbours(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+commonNeighbors_results = commonNeighbors.predict(alpha=0)
 
 # Rooted PageRank
-rootedPageRank = linkpred.predictors.RootedPageRank(trainPeriodGraph, excluded = trainPeriodGraph.edges())
-rootedPageRank_results = rootedPageRank.predict(weight = None, k = 2)
+rootedPageRank = linkpred.predictors.RootedPageRank(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+rootedPageRank_results = rootedPageRank.predict(weight=None, k=2)
 
 # Jaccard coefficient
-jaccard = linkpred.predictors.Jaccard(trainPeriodGraph, excluded = trainPeriodGraph.edges())
+jaccard = linkpred.predictors.Jaccard(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
 jaccard_results = jaccard.predict()
 
 """ 
@@ -72,14 +77,17 @@ Do not calculate for now.
 #pearson_results = pearson.predict()
 
 # Resource Allocation
-resAllocation = linkpred.predictors.ResourceAllocation(trainPeriodGraph, excluded = trainPeriodGraph.edges())
+resAllocation = linkpred.predictors.ResourceAllocation(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
 resAllocation_results = resAllocation.predict()
 
 # Association Strength
-assocStrength = linkpred.predictors.AssociationStrength(trainPeriodGraph, excluded = trainPeriodGraph.edges())
+assocStrength = linkpred.predictors.AssociationStrength(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
 assocStrength_results = assocStrength.predict()
 
-# converting the metrics into lists. We will feed them into pandas data frames later
+# converting the metrics into lists. We will feed them into pandas data
+# frames later
 adamicAdarList = list(adamicAdar_results.values())
 commonNeighborsList = list(commonNeighbors_results.values())
 rootedPageRankList = list(rootedPageRank_results.values())
@@ -118,13 +126,13 @@ testPeriodDict = collections.defaultdict(list)
 for node1, node2 in testPeriodGraph.edges():
     testPeriodDict[node1].append(node2)
 
-# Creating the labels (0 or 1). If a pair for which we calculated a metric does not exist in 
-# the testing period, it takes a 0, otherwise an 1. The "labels" list will be converted to 
+# Creating the labels (0 or 1). If a pair for which we calculated a metric does not exist in
+# the testing period, it takes a 0, otherwise an 1. The "labels" list will be converted to
 # a column in the pandas data frame later, along with the calculated metrics.
 labels = []
 datasetPairs = []
-for u, v in adamicAdar_results.keys():   
-    datasetPairs.append([u,v])
+for u, v in adamicAdar_results.keys():
+    datasetPairs.append([u, v])
     if (v in testPeriodDict[u]) or (u in testPeriodDict[v]):
         labels.append(1)
     else:
@@ -133,28 +141,3 @@ for u, v in adamicAdar_results.keys():
 # Also save the labels
 with open('UC-Irvine/labels_UC-Irvine.pkl', 'wb') as y:
     pickle.dump(labels, y)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

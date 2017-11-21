@@ -28,17 +28,17 @@ def pre_processor(filename):
     with open(filename, 'r') as files:
         for line in files:
             line = line.rstrip('\n')
-            # v = line.split(",")
-            v = line.split(" ")
+            v = line.split(",")
+            # v = line.split(" ")
 
             # dg.add_edge(v[0], v[1], {'weight': v[2], 'timestamp': v[3]})
-            dg.add_edge(v[0], v[1])
+            dg.add_edge(v[0], v[1], {'timestamp': v[2]})
     print(dg)
     return dg
 
 
 def main():
-    parser = pre_processor(digg)
+    parser = pre_processor(dublin)
     # number_of_nodes(parser)
 
 
