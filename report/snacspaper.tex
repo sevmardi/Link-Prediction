@@ -30,6 +30,8 @@
 \documentclass{acm_proc_article-sp}
 
 \usepackage{url}
+\usepackage{color}
+\usepackage{graphicx}
 
 \begin{document}
 
@@ -105,7 +107,7 @@ In this paper, we approach the problem of link prediction using supervised learn
 This paper is heavily based on methods and techniques described in \cite{Hasan06linkprediction} and \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Both papers consider collaboration networks of co-authors on which several machine learning models are applied in order to predict future links (collaborations) between co-authors. Under sampling is used in both papers in order to solve the problem of class imbalance and decrease the size of the training sets. Additionally, in \cite{Lichtenwalter:2010:NPM:1835804.1835837}, the training set is constructed by considering the $n$-neighborhood of each node. Moreover, it is proposed to use a specific type of decision tree, called Hellinger Distance Decision Tree (HDDT) \cite{Cieslak2008}, \cite{Cieslak2012}, applied in the original distribution of the data, that is without employing under sampling. Those trees use the Hellinger distance as splitting criterion, which is skew insensitive \cite{Cieslak2012}, and therefore is very well suited for classification with imbalanced data. Although this recommendation is provided, the authors do not present results of this method. The contributions of this paper are as follows:
 
 \begin{enumerate}
-	\item Although there is an in-depth comparison of Hellinger Distance Decision Trees and regular Random Trees (RT) (that use entropy as splitting criterion) in \cite{Cieslak2012}, to the best of our knowledge, Hellinger Distance Decision Trees have not been applied to solve the problem of link prediction, in which the class imbalance could be as high as 1:60000
+	\item Although there is an in-depth comparison of Hellinger Distance Decision Trees and regular Random Trees (RT) (that use entropy as splitting criterion) in \cite{Cieslak2012}, to the best of our knowledge, Hellinger Distance Decision Trees have not been applied to solve the problem of link prediction, in which the class imbalance could be as high as 1:20000
 	\item We compare two methods based on \cite{Hasan06linkprediction} and \cite{Lichtenwalter:2010:NPM:1835804.1835837}. The first method consists of under sampling the data and fitting RT and HDDT, whereas in the second method we fit those models to the original distribution of our data, that is, without under sampling.
 	\item Regarding the evaluation of results, apart from the ROC/AUC metric which is proposed in \cite{Lichtenwalter:2010:NPM:1835804.1835837}, we also use the Precision-Recall curve as suggested in \cite{saito2015precision}, which is better suited for imbalanced data sets. 
 \end{enumerate}
@@ -118,7 +120,7 @@ The paper is structured as follows. In Section 2, we formalize the link predicti
 
 %In the following sections we will be guiding you through number of problem sets; working with datasets; talking about finding similar or relevant papers; explaining or learning about different algorithms; Experiment and sharing results; sharing our thoughts and finishing things up with some discussions and conclusions  
 
-\section{Problem Statement}
+\section{Problem Statement} 
 
 Consider at a particular time $t$, an undirected network $G = \langle V,E \rangle$, where $V$ is the set of nodes and $E$ is the set of edges. The goal is to predict the edges that will form in the network at time $t' > t$. As an example, consider a collaboration network of co-authors. Two authors $v$ and $w$ are linked when they have published at least one research paper together. The goal is to predict future connections between co-authors that have not yet collaborated.
 
@@ -134,6 +136,7 @@ Selecting an appropriate set of features is one of the most important part in su
 That being said, we end up with a data set in the standard format $(\vec{x},y)$, where $\vec{x}$ are metrics extracted from $G_x$ and $y$ indicates the label, that is whether or not a pair of nodes is connected or not. 
 
 \subsection{Class Imbalance and Size}
+\label{Sect.2b}
 Although we have constructed the data set, there are two main problems. First, the size of the data set is very large which can make the training process infeasible. For example, consider the relatively small in size \texttt{ca-CondMat} network \cite{Leskovec:2007:GED:1217299.1217301}, consisted of 23133 nodes and 93497 edges. Defining the train period to be two-thirds of the networks' edges, and assuming that all node appear in $V_x$, the resulting data set would be of size $23133 \choose 2$ $ - 62631$, which yields more than 267 million instances. Additionally, the distribution of the classes is highly imbalanced. That is, the amount of instances belonging to the negative class is overwhelmingly greater than the instances of  the positive class. Those two issues make the training process difficult or even impossible. There mainly exist two approaches to solve these problems.
 
 One method consists of under sampling the data set to balance in order to create classes of almost the same size. In this way, the size of the training set decreases, and at the same time we obtain balanced classes in which we can fit ordinary predictive models such as, Decision Trees, Support Vector Machines, Neural Networks etc. Note that many of these models perform poorly in highly imbalanced data. 	 
@@ -153,7 +156,21 @@ The link prediction problem was formalized in \cite{Liben-Nowell:2003:LPP:956863
 In the domain of counter-terrorism, link predictions has been studied in \cite{dombroski2003estimating}, \cite{Fire2013}. In the latter paper, several networks are constructed by removing nodes from the original graph, called visible networks. A set of features is calculated from these networks in order to predict links of the original one, using supervised learning models. A more probabilistic approach is taken in \cite{doppa:nips09-wkshp}, where chance-constrain programs are used, and in \cite{NIPS2003_2465}, in which the framework of Relational Markov Network is utilized. Finally, \cite{DBLP:journals/corr/WangXWZ14}, and \cite{Hasan2011} are extensive surveys regarding the different metrics, classification methods, and approaches that have been used for link prediction. 
 
 %The main purpose of this paper is to compare the methods applied in \cite{Hasan06linkprediction}, and \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Specifically, in \cite{Hasan06linkprediction}, under sampling of the data is used in order to decrease the size of the training set and apply several machine learning algorithms. On the other hand, in \cite{Lichtenwalter:2010:NPM:1835804.1835837} the problem is approached by considering each neighborhood as a separate problem, as we discussed in the Section 2.2. In the latter paper, both the methods of under sampling to balance, and the use of Hellinger trees are discussed. Nevertheless, the authors chose to provide results only for the under sampling method. Therefore, the purpose is to fill this gap by first, comparing the methods in the two papers, and additionally apply Hellinger trees in the original distribution of the data, without the use of under sampling. Details regarding the two approaches and the differences between them are provided in the next section.
-	
+
+\section{Suggested Approaches}
+
+In this section, we describe the approaches that have been taken in \cite{Hasan06linkprediction} and \cite{Lichtenwalter:2010:NPM:1835804.1835837} and we discuss the differences between them. Our approach, which is based on both papers, is applied in 5 social networks with the aim to compare DT which are applied in \cite{Hasan06linkprediction} and HDDT which are proposed in \cite{Lichtenwalter:2010:NPM:1835804.1835837}, but the authors have not provided results for the latter method.
+
+
+The authors in \cite{Hasan06linkprediction} use two undirected, unweighted collaboration networks of co-authors, mainly the BIOBASE (\url{http://www.elsevier.com}) and DBLP (\url{http://dblp.uni-trier.de/xml/}) networks. An edge between two authors/nodes exists in case they have written at least on research paper together. Both networks contain timestamps of the years of collaborations. For each network, the authors choose a corresponding train and test period that span one or more years. For example, in the first network, the train period is consisted of 5 years from 1998 to 2002, whereas the test period comprises the year 2003. The data set constructed from this network contains each combination of co-authors that do not exist in the train period, that is, each pair that could potentially have a connection in the future. For each of these combinations, it is examined whether or not there is a connection in the test period. If a connection exists, a positive label is assigned to the pair, otherwise a negative label. Thus, the problem of link prediction has been framed as a binary classification problem in which any known machine learning model can be applied in order to distinguish between the positive and negative classes.  
+
+For each resulting pair of nodes, several topological and domain specific features are calculated. The former kind of features include \textit{shortest dictance }and \textit{clustering index}, whereas the domain specific features include the sum of papers the two authors share, the sum of the count of keywords in the papers of each author, the number of common keywords two authors have used etc. 
+
+One of the main characteristics of the link prediction problem is the great class imbalance between positive and negative classes. This is due to the fact that the number of potential links that could form is enormously larger than the links that do actually form \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Additionally, the resulting data set has a very large size that could make the training process of a classifier even infeasible. To see this, refer to the example described in Section \ref{Sect.2b}. In \cite{Hasan06linkprediction} these problems are solved by under sampling the data to balance. Under sampling is a widely used technique in order to cope with imbalanced classes in which we only keep a representative sample of the large class that is more or less equal to the size of the small class. Specific ratios of imbalance can also be specified in the sampling process. The resulting data set is comprised from the sample of the large class and all instances of the small class, resulting into a balanced data set. 
+
+
+
+
 \bibliographystyle{abbrv}
 \bibliography{snacspaper}  % sigproc.bib is the name of the Bibliography in this case
 
