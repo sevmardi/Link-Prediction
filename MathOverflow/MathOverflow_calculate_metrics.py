@@ -20,7 +20,8 @@ The disadvantage is that linkpred is relatively slow for networks with a lot of 
 that when we calculate a measure, we can then save it into a file and load it when needed.
 """
 
-data = np.loadtxt('../datasets/MathOverflow//MathOverflow.txt',dtype = int)
+#data = np.loadtxt('../datasets/MathOverflow//MathOverflow.txt',dtype = int)
+data = np.loadtxt('datasets/MathOverflow//MathOverflow.txt',dtype = int)
 
 data = data[np.where(data[:,0] != data[:,1])] # remove self loops
 
@@ -64,6 +65,16 @@ rootedPageRank_results = rootedPageRank.predict(weight = None, k = 2)
 jaccard = linkpred.predictors.Jaccard(trainPeriodGraph, excluded = trainPeriodGraph.edges())
 jaccard_results = jaccard.predict()
 
+# NMeasure
+nmeasure = linkpred.predictors.NMeasure(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+nmeasure_results = nmeasure.predict()
+
+# Min Overlap
+minOverlap = linkpred.predictors.MinOverlap(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+minOverlap_results = minOverlap.predict()
+
 """ 
 The pearson coefficient does not produce the same amount of rows as a result (for some reason).
 Do not calculate for now.
@@ -88,6 +99,8 @@ jaccardList = list(jaccard_results.values())
 #pearsonList = list(pearson_results.values())
 resAllocationList = list(resAllocation_results.values())
 assocStrengthList = list(assocStrength_results.values())
+nmeasureList = list(nmeasure_results.values())
+minOverlapList = list(minOverlap_results.values())
 
 """
 Save the metrics.
@@ -113,6 +126,12 @@ with open('MathOverflow/resAllocation_MathOverflow.pkl', 'wb') as y:
 
 with open('MathOverflow/assocStrength_MathOverflow.pkl', 'wb') as y:
     pickle.dump(assocStrengthList, y)
+    
+with open('MathOverflow/nmeasure_MathOverflow.pkl', 'wb') as y:
+    pickle.dump(nmeasureList, y)
+        
+with open('MathOverflow/minOverlap_MathOverflow.pkl', 'wb') as y:
+    pickle.dump(minOverlapList, y)    
 
 
 # Create a dictionary that represents the testPeriodGraph

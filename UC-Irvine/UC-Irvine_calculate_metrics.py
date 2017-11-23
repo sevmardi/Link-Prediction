@@ -21,7 +21,8 @@ The disadvantage is that linkpred is relatively slow for networks with a lot of 
 that when we calculate a measure, we can then save it into a file and load it when needed.
 """
 
-data = np.loadtxt('../datasets/UC-Irvine/UC-Irvine.txt', dtype=int)
+#data = np.loadtxt('../datasets/UC-Irvine/UC-Irvine.txt', dtype=int)
+data = np.loadtxt('datasets/UC-Irvine/UC-Irvine.txt', dtype=int)
 data = data[:, [0, 1, 3]]  # We don't need the weight column
 
 # The data set is sorted by timestamp. We extract rows from 1 to 48000 to indicate the train period.
@@ -86,6 +87,32 @@ assocStrength = linkpred.predictors.AssociationStrength(
     trainPeriodGraph, excluded=trainPeriodGraph.edges())
 assocStrength_results = assocStrength.predict()
 
+
+# Degree Product
+#degProduct = linkpred.predictors.DegreeProduct(
+#    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+#degProduct_results = ppredict()
+
+# NMeasure
+nmeasure = linkpred.predictors.NMeasure(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+nmeasure_results = nmeasure.predict()
+
+# Min Overlap
+minOverlap = linkpred.predictors.MinOverlap(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+minOverlap_results = minOverlap.predict()
+
+# Katz
+#katz = linkpred.predictors.Katz(
+#    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+#katz_results = katz.predict(weight = None)
+
+# SimRank
+#sim = linkpred.predictors.SimRank(
+#    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+#sim_results = sim.predict(weight = None)
+
 # converting the metrics into lists. We will feed them into pandas data
 # frames later
 adamicAdarList = list(adamicAdar_results.values())
@@ -95,6 +122,14 @@ jaccardList = list(jaccard_results.values())
 #pearsonList = list(pearson_results.values())
 resAllocationList = list(resAllocation_results.values())
 assocStrengthList = list(assocStrength_results.values())
+#degProductList = list(degProduct_results.values())
+nmeasureList = list(nmeasure_results.values())
+#maxOverlapList = list(maxOverlap_results.values())
+minOverlapList = list(minOverlap_results.values())
+#katzList = list(katz_results.values())
+#simList = list(sim_results.values())
+
+
 
 """
 Save the metrics.
@@ -113,13 +148,20 @@ with open('UC-Irvine/rootedPageRankList_UC-Irvine.pkl', 'wb') as y:
     pickle.dump(rootedPageRankList, y)
 
 with open('UC-Irvine/jaccard_UC-Irvine.pkl', 'wb') as y:
-    pickle.dump(jaccardList, y)
+   pickle.dump(jaccardList, y)
 
 with open('UC-Irvine/resAllocation_UC-Irvine.pkl', 'wb') as y:
     pickle.dump(resAllocationList, y)
 
 with open('UC-Irvine/assocStrength_UC-Irvine.pkl', 'wb') as y:
     pickle.dump(assocStrengthList, y)
+
+with open('UC-Irvine/nmeasure_UC-Irvine.pkl', 'wb') as y:
+    pickle.dump(nmeasureList, y)
+        
+with open('UC-Irvine/minOverlap_UC-Irvine.pkl', 'wb') as y:
+    pickle.dump(minOverlapList, y)    
+
 
 # Create a dictionary that represents the testPeriodGraph
 testPeriodDict = collections.defaultdict(list)
