@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{chawla2002smote}
+N.~V. Chawla, K.~W. Bowyer, L.~O. Hall, and W.~P. Kegelmeyer.
+\newblock Smote: synthetic minority over-sampling technique.
+\newblock {\em Journal of artificial intelligence research}, 16:321--357, 2002.
+
 \bibitem{Cieslak2008}
 D.~A. Cieslak and N.~V. Chawla.
 \newblock {\em Learning Decision Trees for Unbalanced Data}, pages 241--256.
@@ -9,6 +14,13 @@ D.~A. Cieslak and N.~V. Chawla.
 D.~A. Cieslak, T.~R. Hoens, N.~V. Chawla, and W.~P. Kegelmeyer.
 \newblock Hellinger distance decision trees are robust and skew-insensitive.
 \newblock {\em Data Mining and Knowledge Discovery}, 24(1):136--158, Jan 2012.
+
+\bibitem{de2009social}
+M.~De~Choudhury, H.~Sundaram, A.~John, and D.~D. Seligmann.
+\newblock Social synchrony: Predicting mimicry of user actions in online social
+  media.
+\newblock In {\em Computational Science and Engineering, 2009. CSE'09.
+  International Conference on}, volume~4, pages 151--158. IEEE, 2009.
 
 \bibitem{de2011supervised}
 H.~R. De~S{\'a} and R.~B. Prud{\^e}ncio.
@@ -27,6 +39,11 @@ J.~Doppa, J.~Yu, P.~Tadepalli, and L.~Getoor.
 \newblock Chance-constrained programs for link prediction.
 \newblock In {\em NIPS Workshop on Analyzing Networks and Learning with
   Graphs}, 2009.
+
+\bibitem{eagle2006reality}
+N.~Eagle and A.~Pentland.
+\newblock Reality mining: sensing complex social systems.
+\newblock {\em Personal and Ubiquitous Computing}, 10(4):255--268, 2006.
 
 \bibitem{Fire2013}
 M.~Fire, R.~Puzis, and Y.~Elovici.
@@ -56,6 +73,11 @@ D.~Liben-Nowell and J.~Kleinberg.
   Information and Knowledge Management}, CIKM '03, pages 556--559, New York,
   NY, USA, 2003. ACM.
 
+\bibitem{lichtenwalter2011lpmade}
+R.~N. Lichtenwalter and N.~V. Chawla.
+\newblock Lpmade: Link prediction made easy.
+\newblock {\em Journal of Machine Learning Research}, 12(Aug):2489--2492, 2011.
+
 \bibitem{Lichtenwalter:2010:NPM:1835804.1835837}
 R.~N. Lichtenwalter, J.~T. Lussier, and N.~V. Chawla.
 \newblock New perspectives and methods in link prediction.
@@ -63,12 +85,36 @@ R.~N. Lichtenwalter, J.~T. Lussier, and N.~V. Chawla.
   on Knowledge Discovery and Data Mining}, KDD '10, pages 243--252, New York,
   NY, USA, 2010. ACM.
 
+\bibitem{opsahl2009clustering}
+T.~Opsahl and P.~Panzarasa.
+\newblock Clustering in weighted networks.
+\newblock {\em Social networks}, 31(2):155--163, 2009.
+
+\bibitem{Paranjape:2017:MTN:3018661.3018731}
+A.~Paranjape, A.~R. Benson, and J.~Leskovec.
+\newblock Motifs in temporal networks.
+\newblock In {\em Proceedings of the Tenth ACM International Conference on Web
+  Search and Data Mining}, WSDM '17, pages 601--610, New York, NY, USA, 2017.
+  ACM.
+
 \bibitem{Pavlov:2007:FEL:2889513.2889517}
 M.~Pavlov and R.~Ichise.
 \newblock Finding experts by link prediction in co-authorship networks.
 \newblock In {\em Proceedings of the 2Nd International Conference on Finding
   Experts on the Web with Semantics - Volume 290}, FEWS'07, pages 42--55,
   Aachen, Germany, Germany, 2007. CEUR-WS.org.
+
+\bibitem{quinlan2014c4}
+J.~R. Quinlan.
+\newblock {\em C4. 5: programs for machine learning}.
+\newblock Elsevier, 2014.
+
+\bibitem{nr}
+R.~A. Rossi and N.~K. Ahmed.
+\newblock The network data repository with interactive graph analytics and
+  visualization.
+\newblock In {\em Proceedings of the Twenty-Ninth AAAI Conference on Artificial
+  Intelligence}, 2015.
 
 \bibitem{saito2015precision}
 T.~Saito and M.~Rehmsmeier.

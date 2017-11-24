@@ -31,7 +31,30 @@
 
 \usepackage{url}
 \usepackage{color}
+\usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
+\usepackage{booktabs}
+
+\hypersetup{
+	bookmarks=true,         % show bookmarks bar?
+	unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+	pdftoolbar=true,        % show Acrobat’s toolbar?
+	pdfmenubar=true,        % show Acrobat’s menu?
+	pdffitwindow=false,     % window fit to page when opened
+	pdfstartview={FitH},    % fits the width of the page to the window
+	pdftitle={My title},    % title
+	pdfauthor={Author},     % author
+	pdfsubject={Subject},   % subject of the document
+	pdfcreator={Creator},   % creator of the document
+	pdfproducer={Producer}, % producer of the document
+	pdfkeywords={keyword1, key2, key3}, % list of keywords
+	pdfnewwindow=true,      % links in new PDF window
+	colorlinks=false,       % false: boxed links; true: colored links
+	linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+	citecolor=green,        % color of links to bibliography
+	filecolor=magenta,      % color of file links
+	urlcolor=cyan           % color of external links
+}
 
 \begin{document}
 
@@ -162,14 +185,60 @@ In the domain of counter-terrorism, link predictions has been studied in \cite{d
 In this section, we describe the approaches that have been taken in \cite{Hasan06linkprediction} and \cite{Lichtenwalter:2010:NPM:1835804.1835837} and we discuss the differences between them. Our approach, which is based on both papers, is applied in 5 social networks with the aim to compare DT which are applied in \cite{Hasan06linkprediction} and HDDT which are proposed in \cite{Lichtenwalter:2010:NPM:1835804.1835837}, but the authors have not provided results for the latter method.
 
 
-The authors in \cite{Hasan06linkprediction} use two undirected, unweighted collaboration networks of co-authors, mainly the BIOBASE (\url{http://www.elsevier.com}) and DBLP (\url{http://dblp.uni-trier.de/xml/}) networks. An edge between two authors/nodes exists in case they have written at least on research paper together. Both networks contain timestamps of the years of collaborations. For each network, the authors choose a corresponding train and test period that span one or more years. For example, in the first network, the train period is consisted of 5 years from 1998 to 2002, whereas the test period comprises the year 2003. The data set constructed from this network contains each combination of co-authors that do not exist in the train period, that is, each pair that could potentially have a connection in the future. For each of these combinations, it is examined whether or not there is a connection in the test period. If a connection exists, a positive label is assigned to the pair, otherwise a negative label. Thus, the problem of link prediction has been framed as a binary classification problem in which any known machine learning model can be applied in order to distinguish between the positive and negative classes.  
+The authors in \cite{Hasan06linkprediction} use two undirected, unweighted collaboration networks of co-authors, mainly the BIOBASE \footnote{\url{http://www.elsevier.com}} and DBLP \footnote{\url{http://dblp.uni-trier.de/xml/}} networks. An edge between two authors/nodes exists in case they have written at least on research paper together. Both networks contain timestamps of the years of collaborations. For each network, the authors choose a corresponding train and test period that span one or more years. For example, in the first network, the train period is consisted of 5 years from 1998 to 2002, whereas the test period comprises the year 2003. The data set constructed from this network contains each combination of co-authors that do not exist in the train period, that is, each pair that could potentially have a connection in the future. For each of these combinations, it is examined whether or not there is a connection in the test period. If a connection exists, a positive label is assigned to the pair, otherwise a negative label. Thus, the problem of link prediction has been framed as a binary classification problem in which any known machine learning classification model can be applied in order to distinguish between the positive and negative classes.  
 
-For each resulting pair of nodes, several topological and domain specific features are calculated. The former kind of features include \textit{shortest dictance }and \textit{clustering index}, whereas the domain specific features include the sum of papers the two authors share, the sum of the count of keywords in the papers of each author, the number of common keywords two authors have used etc. 
+For each resulting pair of nodes, several topological and domain specific features are calculated. The former kind of features include the \textit{shortest dictance} and \textit{clustering index}, whereas the domain specific features include the sum of papers the two authors share, the sum of the count of keywords in the papers of each author, the number of common keywords two authors have used etc. 
 
 One of the main characteristics of the link prediction problem is the great class imbalance between positive and negative classes. This is due to the fact that the number of potential links that could form is enormously larger than the links that do actually form \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Additionally, the resulting data set has a very large size that could make the training process of a classifier even infeasible. To see this, refer to the example described in Section \ref{Sect.2b}. In \cite{Hasan06linkprediction} these problems are solved by under sampling the data to balance. Under sampling is a widely used technique in order to cope with imbalanced classes in which we only keep a representative sample of the large class that is more or less equal to the size of the small class. Specific ratios of imbalance can also be specified in the sampling process. The resulting data set is comprised from the sample of the large class and all instances of the small class, resulting into a balanced data set. 
 
+After creating a balanced data set, the authors train several machine learning models such as Decision Trees (with and without Bagging), Support Vector Machines, Naive Bayes, Neural Networks and others. They found that Bagging and Support Vector Machines provided the best performances when compared to different metrics such as accuracy, precision, recall, F-value and squared error. The models are evaluated using 5-fold cross validation.
 
+The second paper in which this work is heavily based, is that of Lichtenwalter et al. \cite{Lichtenwalter:2010:NPM:1835804.1835837}. The techniques described in this paper are applied in two networks, one weighted, undirected co-authorship network of 19464 edges of condensed matter physics collaborations from 1995 to 2000 called \texttt{condmat}, and one directed weighted network of 712 million cellular phone calls, called \textit{phone}. In principle, the construction of train and test sets is the same, that is, topological and node attribute measures are extracted from the network constructed in the train period, and the labeling is being done using the network of the test period.
 
+The authors of the paper treat the problem of class imbalance in great detail. They suggest to construct the data set in the following way. Instead of considering all possible combinations of pairs of nodes that do not exist in the train period, we construct the data set only from those combinations that are not part of the train period, but also contained in the neighborhood of $n$ size. Specifically, for each node $v$, we calculate its $n$-size neighborhood. We then compute the metrics between $v$ and the nodes of this neighborhood, by excluding pairs that already belong to the train period. The idea behind this is that, it is more possible for links to form in the future between nodes that are closely together, than with nodes that are far apart. Thus, reducing the problem to each neighborhood offers two advantages. Firstly, the imbalance between classes is decreased, and secondly given that specific metrics such as \textit{Adamic Adar} and \textit{Rooted PageRank} are expensive to compute, we avoid calculating those metrics for pairs of nodes that are not highly likely to connect in the future. The value of $n$ is chosen by the user. Selecting higher values guarantee that we do not lose connections that actually do form, but on the other hand the instances of the negative class increase dramatically, along with the computation time of the metrics.
+
+Although choosing smaller values for $n$ mitigates the problem of class imbalance, the distributions' skew is still heavy, with the negative class dominating the positive. As an example, for the \texttt{condmat} network in \cite{Lichtenwalter:2010:NPM:1835804.1835837}, values of $n=2$ and $n=4$ result in classes of 179:1 and 6247:1, respectively. For the larger \texttt{phone} network, the imbalance is even stronger. For the aforementioned values of $n$, the ratios are 131:1 and 32880:1, respectively.
+
+Apart from the aforementioned suggestion of treating the problem locally for each neighborhood, the authors in \cite{Lichtenwalter:2010:NPM:1835804.1835837} also provide their insights and suggestions regarding sampling techniques. One technique that can be used is called SMOTE \cite{chawla2002smote}, in which the minority class is over sampled in order to balance the data set. Although that could work in a network such as \texttt{condmat}, it will certainly not for \texttt{phone}, due to its size \cite{Lichtenwalter:2010:NPM:1835804.1835837}. The problem is that by using over sampling techniques we increase the size of the train set which we wanted to reduce in the first place. Regarding under sampling, the authors experiment with different sampling ratios, that is, they explicitly under sample the data to different ratios than 1:1, and then they evaluate a C4.5 Decision Tree \cite{quinlan2014c4} by reporting the AUC measure of the respective ROC curve. The idea is that by keeping a ratio of imbalance in the under sampled data set, we retain information from the network, which we might lose when under sampling to 1:1 ratio. Although this is a valid approach, the authors evaluate the classifier trained on imbalanced data using the AUC of the ROC curve, which might be misleading, since the ROC curve is insensitive to skew distribution \cite{saito2015precision}. 
+
+Additionally, the High Performance Link Prediction (HPLP) framework is presented in \cite{Lichtenwalter:2010:NPM:1835804.1835837}. This framework comprises several topological metrics that can be computed for every network such as \textit{In/Out Degree}, \textit{Common Neighbors}, \textit{Maximum Flow}, \textit{Adamic Adar}, \textit{Jaccard Coefficient}, and others. Note that this is different from the work of Hasan et al. \cite{Hasan06linkprediction} where most of the selected features are domain specific. Hence, HPLP serves as a general framework for link prediction. Additionally, a new unsupervised prediction method is presented called \texttt{PropFlow}. It is a predictor based on random walk that starts from node $v_i$ and ends at a node $v_j$ in $l$ or fewer steps, using link weights as transition probabilities \cite{Lichtenwalter:2010:NPM:1835804.1835837}. A score $s_{ij}$ is produced for each pair of nodes $v_i$ and $v_j$ that serve as an estimation of the likelihood that the two nodes will be connected in the future. \texttt{PropFlow} is also included in HPLP.
+
+Finally, after under sampling to balance both data sets, the authors apply Random Forests with Bagging, using the features proposed in the HPLP framework, and for different values of $n$. They found that with increasing values of $n$ there is a deterioration in performance, in both networks. The value of $n=2$ provided the best performance.
+
+In this paper, we compare Decision Trees and Hellinger Distance Decision Trees with bagging as applied and proposed in \cite{Hasan06linkprediction} and \cite{Lichtenwalter:2010:NPM:1835804.1835837}, respectively, for the case of under sampling to balance (ratio 1:1), and for an imbalanced ratio 1:6, for 5 social networks. To the best of our knowledge, Hellinger Distance Decision Trees have not been applied to solve the link prediction problem. We are interested to examine whether or not HDDT provide sufficiently good results after constructing a data set from a social network and under sampling to a ratio of 1:6.
+
+\section{Data Sets and Software Tools}
+
+Almost all link prediction works need to verify their methods on the collected datasets. The datasets are important for fairly reproducing and comparing different link prediction methods. Constructing and collecting the datasets is a time-consuming and labor-intensive work. That said, not all the datasets are publicly available to use and some of them are incomplete. Since the process of transforming the network to a data set requires to create two non-overlapping periods that simulate the formation of links between nodes from one period to the other, it is essential to consider networks that contain timestamps. We are interested in both directed and undirected networks. Nevertheless, we convert the former type to the latter. In all of our experiments, we consider unweighted networks.
+
+%As mentioned in the sub-section Constructing Data Sets the dataset needs splitting into training sets and testing sets and to link-predict correctly our focus lies specifically on datasets with timestamps attached to each set of points this way we can easily check if a set exists in training set and test set given the dates of, for instances two authors previously worked together and might work together in the near future. 
+
+%During scouting on the web for datasets we came across several useful datasets to which we think we can work with and produce some results with it. 
+
+We use two networks from that come from the KONECT \footnote{\url{http://konect.uni-koblenz.de/networks/}} database such as the \texttt{UC Irvine messages} \footnote{\url{http://konect.uni-koblenz.de/networks/opsahl-ucsocial}} \cite{opsahl2009clustering}, a directed network containing sent messages between the users of an on-line community of students from the University of California, Irvine. Next, \texttt{Digg} \footnote{\url{http://konect.uni-koblenz.de/networks/munmun_digg_reply}}\cite{de2009social} is a reply directed network of the social news website Digg where each node in the network is a user of the website, and each directed edge denotes that a user replied to another user. Furthermore, we use the \texttt{Dublin Contacts} \footnote{\url{http://networkrepository.com/ia-contacts-dublin.php}} \cite{nr} undirected network in which a node represents a human and an edge corresponds to a contact in the physical world. Moreover, we consider the \texttt{IA-Reality-call} \footnote{\url{http://networkrepository.com/ia-reality-call.php}} \cite{eagle2006reality}, \cite{nr} an undirected network that consists of human mobile phone call events between a small set of core users at the Massachusetts Institute of Technology (MIT) whom actually were assigned mobile phones for which all calls were collected. The network also contains edges between users that do not belong in the small set of users who called other individuals that were not actively monitored. Therefore, some sort of noise might exist in this network, since we do not have more information about the individuals outside of the small set of MIT users. Finally, we consider the directed \texttt{MathOverflow} \footnote{\url{http://snap.stanford.edu/data/sx-mathoverflow.html}} \cite{Paranjape:2017:MTN:3018661.3018731} network, where a node represents a user, and an edge indicates that user $u$ answered user's $v$ question on the website.
+
+%\begin{table}
+%	\centering
+%	\scalebox{0.9}{
+%	\begin{tabular}{l c c c c c} 
+%		& \texttt{UC}  & \texttt{Digg} & \texttt{Dublin} & \texttt{Reality} & \texttt{MathOver}\\ 
+%		\toprule
+%		Assortativity Coef. & -0.187 & 0.004 & 0.708 & ?? & ??\\
+%		Clustering Coef. & 	5.68 & 0.56 & 1.06 & ?? & ?? \\
+%		Mean degree & 63.017 & 5.7653 & 75 & ?? & ?? \\
+%		Size Largest SCC & 1294 & 6746 & 335 & ?? & 3256\\
+%		Size of nodes & 1899  & 30398 & 10972 & ?? & 21688 \\
+%		Size of Edges & 59835  & 87627 & 44517 & ?? & 107581 \\
+%		Timespan & ? & ? & ? & ? & ?
+%	\end{tabular}}
+	
+%\end{table}
+
+%Some of the sets we came across are either outdated or incomplete to so degree which was unusable. The social network datasets however are well maintained by some of the major datasets distributors such as Stanford University, this due that most of the researchers prefer to use these datasets. During the experimentation phase we noticed that some of sets contain noise\footnote{Noise make the networks inconsistent to the real-world networks.} and so a clean-up is required before usage. ~~And, when same metrics are compared on different datasets their performance ranks are usually not consistent or even various greatly~~. 
+
+Although there are many link prediction metrics and methods proposed, only very few works open their source codes. Re-implementing methods and formulas to calculate predictors is a time-consuming process. Only few public tools try to integrate these metrics and methods such as \texttt{linkpred}\footnote{\url{https://github.com/rafguns/linkpred}} and \texttt{LPmade} \footnote{\url{https://github.com/rlichtenwalter/LPmade}} \cite{lichtenwalter2011lpmade} which both have a handful of link prediction metrics. \texttt{LPmade} is a cross-platform software solution that provides multi-core link prediction and related tasks and analysis \cite{lichtenwalter2011lpmade}. It is written in \texttt{C++} and therefore it is suited for handling very large networks. Unfortunately, compilation issues and furthermore the lack of documentation and support prevented us from using the software. Hence, we used a \texttt{Python} library called \texttt{linkpred}. Unfortunately, due to the fact that it is entirely written \texttt{Python} it can prove to be very slow for handling large networks.
+
+%It is a scalable library which implements the most commonly used unsupervised link prediction metrics, and furthermore supports automatic link prediction processes including prediction, evaluation, and network analysis
 
 \bibliographystyle{abbrv}
 \bibliography{snacspaper}  % sigproc.bib is the name of the Bibliography in this case
