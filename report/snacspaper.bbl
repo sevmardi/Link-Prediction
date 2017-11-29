@@ -50,6 +50,13 @@ M.~Fire, R.~Puzis, and Y.~Elovici.
 \newblock {\em Link Prediction in Highly Fractional Data Sets}, pages 283--300.
 \newblock Springer New York, New York, NY, 2013.
 
+\bibitem{gomez2008statistical}
+V.~G{\'o}mez, A.~Kaltenbrunner, and V.~L{\'o}pez.
+\newblock Statistical analysis of the social network and discussion threads in
+  slashdot.
+\newblock In {\em Proceedings of the 17th international conference on World
+  Wide Web}, pages 645--654. ACM, 2008.
+
 \bibitem{Hasan06linkprediction}
 M.~A. Hasan, V.~Chaoji, S.~Salem, and M.~Zaki.
 \newblock Link prediction using supervised learning.

@@ -20,13 +20,11 @@ The disadvantage is that linkpred is relatively slow for networks with a lot of 
 that when we calculate a measure, we can then save it into a file and load it when needed.
 """
 
-#data = np.loadtxt('../datasets/MathOverflow//MathOverflow.txt',dtype = int)
+
 data = np.loadtxt('datasets/digg_networks//DiggNetwork.txt',dtype = int)
 
 data = data[np.where(data[:,0] != data[:,1])] # remove self loops
-
 data = data[:,[0,1,3]]
-data2 = data
 data = data[data[:,2].argsort()] # sort by timestamp
 
 # The data set is sorted by timestamp. We extract rows from 1 to 90000 to indicate the train period.
