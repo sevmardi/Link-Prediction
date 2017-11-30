@@ -7,3 +7,5 @@
 4) http://snap.stanford.edu/data/sx-mathoverflow.html  <-- There are 3 datasets here. We use the sx-mathoverflow-a2q
 
 5) http://konect.uni-koblenz.de/networks/munmun_digg_reply
+
+6) http://konect.uni-koblenz.de/networks/epinions 
