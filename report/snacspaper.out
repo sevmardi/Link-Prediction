@@ -1,8 +1,17 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Problem Statement}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Constructing Data Sets}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Class Imbalance and Size}{section.2}% 4
-\BOOKMARK [1][-]{section.3}{Related Work}{}% 5
-\BOOKMARK [1][-]{section.4}{Suggested Approaches}{}% 6
-\BOOKMARK [1][-]{section.5}{Data Sets and Software Tools}{}% 7
-\BOOKMARK [1][-]{section.6}{References}{}% 8
+\BOOKMARK [2][-]{subsection.2.1}{Preliminaries}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Constructing Data Sets}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Class Imbalance and Size}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Related Work}{}% 6
+\BOOKMARK [1][-]{section.4}{Suggested Approaches}{}% 7
+\BOOKMARK [2][-]{subsection.4.1}{Construction of Data Sets}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.2}{Calculation of Features}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.3}{Overcoming Imbalance}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.4}{HDDT and C4.5}{section.4}% 11
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Recursive Partitioning}{subsection.4.4}% 12
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Splitting Criteria}{subsection.4.4}% 13
+\BOOKMARK [1][-]{section.5}{Data Sets and Software Tools}{}% 14
+\BOOKMARK [2][-]{subsection.5.1}{Data Sources}{section.5}% 15
+\BOOKMARK [2][-]{subsection.5.2}{Software Tools}{section.5}% 16
+\BOOKMARK [1][-]{section.6}{References}{}% 17
