@@ -20,13 +20,17 @@ The disadvantage is that linkpred is relatively slow for networks with a lot of 
 that when we calculate a measure, we can then save it into a file and load it when needed.
 """
 
-data = np.loadtxt('../datasets/Reality Mining/RealityMining.txt',dtype = int) # Load the Reality Mining data set
-data = data[:,[0,1,3]] # We don't need the weight column
+data = np.loadtxt('../../datasets/reality_mining/ia-reality-call.txt', dtype = int, delimiter=',') # Load the Reality Mining data set
 
-# The data set is sorted by timestamp. We extract rows from 1 to 900.000 to indicate the train period.
+data = data[np.where(data[:,0] != data[:,1])] # remove self loops
+data = data[:,[0,1,2]]
+
+data = data[data[:,2].argsort()] # sort by timestamp
+
+# The data set is sorted by timestamp. We extract rows from 1 to 90000 to indicate the train period.
 # The rest indicate the test period
-trainPeriod = data[:900000,:]  
-testPeriod = data[900000:,:]
+trainPeriod = data[:36435,:]  
+testPeriod = data[36435:,:]
 
 # Convert the periods to undirected graphs.
 trainPeriodGraph = nx.Graph(trainPeriod[:,[0,1]].tolist())
@@ -63,6 +67,16 @@ rootedPageRank_results = rootedPageRank.predict(weight = None, k = 2)
 jaccard = linkpred.predictors.Jaccard(trainPeriodGraph, excluded = trainPeriodGraph.edges())
 jaccard_results = jaccard.predict()
 
+# NMeasure
+nmeasure = linkpred.predictors.NMeasure(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+nmeasure_results = nmeasure.predict()
+
+# Min Overlap
+minOverlap = linkpred.predictors.MinOverlap(
+    trainPeriodGraph, excluded=trainPeriodGraph.edges())
+minOverlap_results = minOverlap.predict()
+
 """ 
 The pearson coefficient does not produce the same amount of rows as a result (for some reason).
 Do not calculate for now.
@@ -87,31 +101,39 @@ jaccardList = list(jaccard_results.values())
 #pearsonList = list(pearson_results.values())
 resAllocationList = list(resAllocation_results.values())
 assocStrengthList = list(assocStrength_results.values())
+nmeasureList = list(nmeasure_results.values())
+minOverlapList = list(minOverlap_results.values())
 
 """
 Save the metrics.
 """
 
-if not os.path.isdir('Reality Mining'):
-    os.mkdir('Reality Mining')
+if not os.path.isdir('DiggNetwork'):
+    os.mkdir('DiggNetwork')
 
-with open('Reality Mining/adamicAdar_reality_mining.pkl', 'wb') as y:
+with open('DiggNetwork/adamicAdar_DiggNetwork.pkl', 'wb') as y:
     pickle.dump(adamicAdarList, y)
 
-with open('Reality Mining/commonNeighbors_reality_mining.pkl', 'wb') as y:
+with open('DiggNetwork/commonNeighbors_DiggNetwork.pkl', 'wb') as y:
     pickle.dump(commonNeighborsList, y)
 
-with open('Reality Mining/rootedPageRankList_reality_mining.pkl', 'wb') as y:
+with open('DiggNetwork/rootedPageRankList_DiggNetwork.pkl', 'wb') as y:
     pickle.dump(rootedPageRankList, y)
 
-with open('Reality Mining/jaccard_reality_mining.pkl', 'wb') as y:
+with open('DiggNetwork/jaccard_DiggNetwork.pkl', 'wb') as y:
     pickle.dump(jaccardList, y)
 
-with open('Reality Mining/resAllocation_reality_mining.pkl', 'wb') as y:
+with open('DiggNetwork/resAllocation_DiggNetwork.pkl', 'wb') as y:
     pickle.dump(resAllocationList, y)
 
-with open('Reality Mining/assocStrength_reality_mining.pkl', 'wb') as y:
+with open('DiggNetwork/assocStrength_DiggNetwork.pkl', 'wb') as y:
     pickle.dump(assocStrengthList, y)
+    
+with open('DiggNetwork/nmeasure_DiggNetwork.pkl', 'wb') as y:
+    pickle.dump(nmeasureList, y)
+        
+with open('DiggNetwork/minOverlap_DiggNetwork.pkl', 'wb') as y:
+    pickle.dump(minOverlapList, y)    
 
 
 # Create a dictionary that represents the testPeriodGraph
@@ -123,14 +145,16 @@ for node1, node2 in testPeriodGraph.edges():
 # the testing period, it takes a 0, otherwise an 1. The "labels" list will be converted to 
 # a column in the pandas data frame later, along with the calculated metrics.
 labels = []
-for u, v in adamicAdar_results.keys():   
+datasetPairs = []
+for u, v in jaccard_results.keys():   
+    datasetPairs.append([u,v])
     if (v in testPeriodDict[u]) or (u in testPeriodDict[v]):
         labels.append(1)
     else:
         labels.append(0)
 
 # Also save the labels
-with open('Reality Mining/labels_reality_mining.pkl', 'wb') as y:
+with open('DiggNetwork/labels_DiggNetwork.pkl', 'wb') as y:
     pickle.dump(labels, y)
 
 
