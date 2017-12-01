@@ -26,11 +26,13 @@ data = data[np.where(data[:,0] != data[:,1])] # remove self loops
 data = data[:,[0,1,2]]
 
 data = data[data[:,2].argsort()] # sort by timestamp
+#print(data[35872, :])
+
 
 # The data set is sorted by timestamp. We extract rows from 1 to 90000 to indicate the train period.
 # The rest indicate the test period
-trainPeriod = data[:36435,:]  
-testPeriod = data[36435:,:]
+trainPeriod = data[:35872,:]  
+testPeriod = data[35872:,:]
 
 # Convert the periods to undirected graphs.
 trainPeriodGraph = nx.Graph(trainPeriod[:,[0,1]].tolist())
