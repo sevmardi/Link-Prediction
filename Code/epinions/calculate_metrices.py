@@ -12,9 +12,10 @@ data = data[np.where(data[:,0] != data[:,1])] # remove self loops
 data = data[:,[0,1,3]]
 
 data = data[data[:,2].argsort()] # sort by timestamp
+print(len(data))
 
-trainPeriod = data[:36435,:]  
-testPeriod = data[36435:,:]
+# trainPeriod = data[:36435,:]  
+# testPeriod = data[36435:,:]
 
 
 # # Convert the periods to undirected graphs.
