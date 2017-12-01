@@ -6,25 +6,25 @@ Read the metrics.
 
 """
     
-with open('Reality Mining/adamicAdar_reality_mining.pkl', 'rb') as y:
+with open('reality_mining/adamicAdar_reality_mining.pkl', 'rb') as y:
     adamicAdarList = pickle.load(y)
 
-with open('Reality Mining/commonNeighbors_reality_mining.pkl', 'rb') as y:
+with open('reality_mining/commonNeighbors_reality_mining.pkl', 'rb') as y:
     commonNeighborsList = pickle.load(y)
 
-with open('Reality Mining/rootedPageRankList_reality_mining.pkl', 'rb') as y:
+with open('reality_mining/rootedPageRankList_reality_mining.pkl', 'rb') as y:
     rootedPageRankList = pickle.load(y)
 
-with open('Reality Mining/jaccard_reality_mining.pkl', 'rb') as y:
+with open('reality_mining/jaccard_reality_mining.pkl', 'rb') as y:
     jaccardList = pickle.load(y)
 
-with open('Reality Mining/resAllocation_reality_mining.pkl', 'rb') as y:
+with open('reality_mining/resAllocation_reality_mining.pkl', 'rb') as y:
     resAllocationList = pickle.load(y)
 
-with open('Reality Mining/assocStrength_reality_mining.pkl', 'rb') as y:
+with open('reality_mining/assocStrength_reality_mining.pkl', 'rb') as y:
     assocStrengthList = pickle.load(y)
    
-with open('Reality Mining/labels_reality_mining.pkl', 'rb') as y:
+with open('reality_mining/labels_reality_mining.pkl', 'rb') as y:
     labels = pickle.load(y)
     
 labels2 = []
