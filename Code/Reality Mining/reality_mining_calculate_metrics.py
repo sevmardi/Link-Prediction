@@ -108,31 +108,31 @@ minOverlapList = list(minOverlap_results.values())
 Save the metrics.
 """
 
-if not os.path.isdir('DiggNetwork'):
-    os.mkdir('DiggNetwork')
+if not os.path.isdir('reality_mining'):
+    os.mkdir('reality_mining')
 
-with open('DiggNetwork/adamicAdar_DiggNetwork.pkl', 'wb') as y:
+with open('reality_mining/adamicAdar_reality_mining.pkl', 'wb') as y:
     pickle.dump(adamicAdarList, y)
 
-with open('DiggNetwork/commonNeighbors_DiggNetwork.pkl', 'wb') as y:
+with open('reality_mining/commonNeighbors_reality_mining.pkl', 'wb') as y:
     pickle.dump(commonNeighborsList, y)
 
-with open('DiggNetwork/rootedPageRankList_DiggNetwork.pkl', 'wb') as y:
+with open('reality_mining/rootedPageRankList_reality_mining.pkl', 'wb') as y:
     pickle.dump(rootedPageRankList, y)
 
-with open('DiggNetwork/jaccard_DiggNetwork.pkl', 'wb') as y:
+with open('reality_mining/jaccard_reality_mining.pkl', 'wb') as y:
     pickle.dump(jaccardList, y)
 
-with open('DiggNetwork/resAllocation_DiggNetwork.pkl', 'wb') as y:
+with open('reality_mining/resAllocation_reality_mining.pkl', 'wb') as y:
     pickle.dump(resAllocationList, y)
 
-with open('DiggNetwork/assocStrength_DiggNetwork.pkl', 'wb') as y:
+with open('reality_mining/assocStrength_reality_mining.pkl', 'wb') as y:
     pickle.dump(assocStrengthList, y)
     
-with open('DiggNetwork/nmeasure_DiggNetwork.pkl', 'wb') as y:
+with open('reality_mining/nmeasure_reality_mining.pkl', 'wb') as y:
     pickle.dump(nmeasureList, y)
         
-with open('DiggNetwork/minOverlap_DiggNetwork.pkl', 'wb') as y:
+with open('reality_mining/minOverlap_reality_mining.pkl', 'wb') as y:
     pickle.dump(minOverlapList, y)    
 
 
@@ -154,7 +154,7 @@ for u, v in jaccard_results.keys():
         labels.append(0)
 
 # Also save the labels
-with open('DiggNetwork/labels_DiggNetwork.pkl', 'wb') as y:
+with open('reality_mining/labels_reality_mining.pkl', 'wb') as y:
     pickle.dump(labels, y)
 
 
