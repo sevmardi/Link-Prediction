@@ -47,5 +47,11 @@ dataset = pd.DataFrame(
      'Min Overlap': minOverlapList,
     })
 
+trainset = dataset.iloc[:2820815,:]
+testset = dataset.iloc[2820815:,:]    
+    
+trainset.to_csv('./New/SlashDot_trainset.csv', index = False)
+testset.to_csv('./New/SlashDot_testset.csv', index = False)    
+    
 dataset.to_csv('SlashDot_Data.csv',index=False)
 

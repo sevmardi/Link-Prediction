@@ -138,4 +138,9 @@ P.~Wang, B.~Xu, Y.~Wu, and X.~Zhou.
 \newblock Link prediction in social networks: the state-of-the-art.
 \newblock {\em CoRR}, abs/1411.5118, 2014.
 
+\bibitem{witten2016data}
+I.~H. Witten, E.~Frank, M.~A. Hall, and C.~J. Pal.
+\newblock {\em Data Mining: Practical machine learning tools and techniques}.
+\newblock Morgan Kaufmann, 2016.
+
 \end{thebibliography}

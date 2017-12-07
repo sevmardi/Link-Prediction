@@ -22,6 +22,7 @@ that when we calculate a measure, we can then save it into a file and load it wh
 
 data = np.loadtxt('../../datasets/reality_mining/ia-reality-call.txt', dtype = int, delimiter=',') # Load the Reality Mining data set
 
+
 data = data[np.where(data[:,0] != data[:,1])] # remove self loops
 data = data[:,[0,1,2]]
 

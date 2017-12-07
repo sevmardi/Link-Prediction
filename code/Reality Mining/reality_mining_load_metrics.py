@@ -26,14 +26,20 @@ with open('reality_mining/assocStrength_reality_mining.pkl', 'rb') as y:
    
 with open('reality_mining/labels_reality_mining.pkl', 'rb') as y:
     labels = pickle.load(y)
+
+with open('reality_mining/nmeasure_reality_mining.pkl', 'rb') as y:
+    nmeasureList = pickle.load(y)
+    
+with open('reality_mining/minOverlap_reality_mining.pkl', 'rb') as y:
+    minOverlapList = pickle.load(y)    
     
 labels2 = []
 for el in labels:
     if el == 1:
-        labels2.append("yes")
+        labels2.append("Form")
     else:
-        labels2.append("no")
-
+        labels2.append("Not Form")
+    
 dataset = pd.DataFrame(
     {'Adamic Adar': adamicAdarList,
      'Common Neighbors': commonNeighborsList,
@@ -42,5 +48,9 @@ dataset = pd.DataFrame(
      'Resource Allocation': resAllocationList,
      'Association Strength': assocStrengthList,
      'Labels': labels2,
-    })        
+     'NMeasure': nmeasureList,
+     'Min Overlap': minOverlapList,
+    })
+
+dataset.to_csv('reality_mining_Data.csv',index=False)     
         

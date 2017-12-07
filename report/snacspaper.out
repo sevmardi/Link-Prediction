@@ -9,9 +9,17 @@
 \BOOKMARK [2][-]{subsection.4.2}{Calculation of Features}{section.4}% 9
 \BOOKMARK [2][-]{subsection.4.3}{Overcoming Imbalance}{section.4}% 10
 \BOOKMARK [2][-]{subsection.4.4}{HDDT and C4.5}{section.4}% 11
-\BOOKMARK [3][-]{subsubsection.4.4.1}{Recursive Partitioning}{subsection.4.4}% 12
-\BOOKMARK [3][-]{subsubsection.4.4.2}{Splitting Criteria}{subsection.4.4}% 13
-\BOOKMARK [1][-]{section.5}{Data Sets and Software Tools}{}% 14
-\BOOKMARK [2][-]{subsection.5.1}{Data Sources}{section.5}% 15
-\BOOKMARK [2][-]{subsection.5.2}{Software Tools}{section.5}% 16
-\BOOKMARK [1][-]{section.6}{References}{}% 17
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Preliminaries}{subsection.4.4}% 12
+\BOOKMARK [3][-]{subsubsection.4.4.2}{General Construction - Recursive Partitioning}{subsection.4.4}% 13
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Splitting Criteria - Gain Ratio}{subsection.4.4}% 14
+\BOOKMARK [3][-]{subsubsection.4.4.4}{Splitting Criteria - Hellinger Distance}{subsection.4.4}% 15
+\BOOKMARK [1][-]{section.5}{Data Sets and Software Tools}{}% 16
+\BOOKMARK [2][-]{subsection.5.1}{Data Sources}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.2}{Software Tools}{section.5}% 18
+\BOOKMARK [1][-]{section.6}{Experiments and Results}{}% 19
+\BOOKMARK [2][-]{subsection.6.1}{Experimental Setup}{section.6}% 20
+\BOOKMARK [2][-]{subsection.6.2}{Evaluation}{section.6}% 21
+\BOOKMARK [2][-]{subsection.6.3}{Calculated Features}{section.6}% 22
+\BOOKMARK [2][-]{subsection.6.4}{Results}{section.6}% 23
+\BOOKMARK [1][-]{section.7}{Conclusions}{}% 24
+\BOOKMARK [1][-]{section.8}{References}{}% 25

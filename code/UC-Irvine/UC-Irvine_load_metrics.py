@@ -51,6 +51,13 @@ dataset = pd.DataFrame(
      'Min Overlap': minOverlapList,
      })
 
+trainset = dataset.iloc[:200080,:]
+testset = dataset.iloc[200080:,:]    
+    
+trainset.to_csv('./New/UC-Irvine_trainset.csv', index = False)
+testset.to_csv('./New/UC-Irvine_testset.csv', index = False)
+
+
 dataset.to_csv('UC-Irvine_Data.csv',index=False)
 
     
