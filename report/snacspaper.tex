@@ -36,7 +36,10 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{amsmath}
+\usepackage{array, multirow}
 \usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{graphicx}
 \hypersetup{
 	bookmarks=true,         % show bookmarks bar?
 	unicode=false,          % non-Latin characters in Acrobat’s bookmarks
@@ -60,7 +63,7 @@
 
 \begin{document}
 
-\title{Course Project Title}
+\title{Comparison of Hellinger Distance and C4.5 Decision Trees for the Class Imbalance Problem of Link Prediction}
 \subtitle{Social Network Analysis for Computer Scientists --- Course Project Paper}
 
 \numberofauthors{2} %  in this sample file, there are a *total*
@@ -122,18 +125,18 @@ Organizations, such as Amazon, can extract information based on raw data in orde
 
 That being said, links or associations are usually based on someone's behavior and interests. In social networks however, objects are dynamic given that the number of edges and nodes are changing continuously. Getting a hold of those dynamics [number of nodes and edges] is one of the fundamental problems in social network analysis. The main problem which we are going to cover in this paper is, given a network at time $t$, accurately predict the links that are going to form at a future time $t'$. This is known as the link prediction problem.
 
-In this paper, we approach the problem of link prediction using supervised learning \cite{Fire2013, Hasan06linkprediction, Lichtenwalter:2010:NPM:1835804.1835837, Wang:2007:LPM:1441428.1442084}. Unsupervised techniques have also been used to solve the problem of link prediction. In both cases, we calculate metrics, also called features, between pairs of nodes that indicate how likely it is for the pair to connect in the future. Those metrics can be of topological nature such as the number of common neighbors between two nodes, or domain specific, such as the number of papers that two authors have written together in the case of a collaboration network. The main difference between supervised and unsupervised learning is that in the former we split the data set into a train and test set. We construct a model that can predict future links using the train data and we evaluate its efficiency using the test data. The aforementioned calculated features serve as inputs to the machine learning model.
+In this paper, we approach the problem of link prediction using supervised learning \cite{Fire2013, Hasan06linkprediction, Lichtenwalter:2010:NPM:1835804.1835837, Wang:2007:LPM:1441428.1442084}. Unsupervised techniques have also been used. In both cases, we calculate metrics, also called features, between pairs of nodes that indicate how likely it is for the pairs to connect in the future. Those metrics can be of topological nature such as the number of common neighbors between two nodes, or domain specific, such as the number of papers that two authors have written together in the case of a collaboration network. The main difference between supervised and unsupervised learning is that in the former we split the data set into a train and test set. We construct a model that can predict future links using the train data and we evaluate its efficiency using the test data. The aforementioned calculated features serve as inputs in the machine learning model.
 
 %We also learned other papers are in existence in regards of supervised learning which cover the matters of link prediction problem such as in [2] and [17] in which the authors merely cover the results of the test set(s) being unbalanced filled with negative instances. Our main contributing will mainly focus on this paper [1] and the methods and techniques in which we can, additionally, contribute to this paper. 
 
 %In link prediction, we need to transform networks in actual data sets to apply machine learning models. Due to the way of constructing those data sets, there is a great imbalance between negat Data sets constructed from networks Due to the high class imbalance in data sets constructed from networks 
 
 
-\textcolor{red}{This paper is based on methods and techniques described in \cite{Hasan06linkprediction} and \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Both papers consider collaboration networks on which several machine learning models are applied in order to predict future links (collaborations) between authors.} 
+%\textcolor{red}{This paper is based on methods and techniques described in \cite{Hasan06linkprediction} and \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Both papers consider collaboration networks on which several machine learning models are applied in order to predict future links (collaborations) between authors.} 
 
-In the framework of supervised learning, the prediction task is framed as a binary classification problem where a classifier is built in order to distinguish between the instances of the positive and negative class. We say that a pair of edges belongs to the positive class if they are connected, and to the negative class otherwise. One of the main problems in link prediction is that of class imbalance, that is the number of instances of the negative class are overwhelmingly greater than those of the positive. This means that the number of links that do actually form (positive class) is dramatically less than the number of links that do not form (negative class) \cite{Lichtenwalter:2010:NPM:1835804.1835837}. The reason that class imbalance consists a problem is due to the fact that it impedes the ability of classifiers to learn from the minority class \cite{Cieslak2012}, resulting to a classifier that predicts every instance as belonging to the majority class. 
+In the framework of supervised learning, the prediction task is framed as a binary classification problem where a classifier is built in order to distinguish between the instances of the positive and negative class. We say that a pair of nodes belong to the positive class if they are connected, and to the negative class otherwise. One of the main problems in link prediction is the class imbalance, that is the number of instances of the negative class are overwhelmingly greater than those of the positive. This means that the number of links that do actually form (positive class) is dramatically less than the number of links that do not form (negative class) \cite{Lichtenwalter:2010:NPM:1835804.1835837}. The reason that class imbalance consists a problem is due to the fact that it impedes the ability of classifiers to learn from the minority class \cite{Cieslak2012}, resulting to a classifier that predicts every instance as belonging to the majority class. 
  
-A method for dealing with imbalanced data sets is that of applying a specific type of decision tree called Hellinger Distance Decision Trees (HDDT) \cite{Cieslak2008, Cieslak2012}, which are robust and insensitive to skewed distributions. This method is suggested in \cite{Lichtenwalter:2010:NPM:1835804.1835837} as a solution to class imbalance in link prediction, but the authors have not provided results of this method. To the best of our knowledge, HDDT have not been applied to solve the link prediction problem. In this paper we compare C4.5 decision trees \cite{quinlan2014c4} as applied in \cite{Hasan06linkprediction}, and HDDT as proposed in \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Our interest is to examine whether or not HDDT provide an alternative solution to the class imbalance problem of link prediction. A discussion of C4.5 and HDDT can be found in Section \ref{Sect.4}. 
+A method for dealing with imbalanced data sets is that of applying a specific type of decision tree called Hellinger Distance Decision Trees (HDDT) \cite{Cieslak2008, Cieslak2012}, which are robust and insensitive to skewed distributions. This method is suggested in \cite{Lichtenwalter:2010:NPM:1835804.1835837} as a solution to class imbalance in link prediction, but the authors have not provided results of this method. An extensive comparison of HDDT and C4.5 can be found in \cite{Cieslak2012}. In this study HDDT outperformed C4.5 in most imbalanced data sets for binary classification, whereas C4.5 performed better in the multi-class case. The differences in results between the two types of trees were not substantial with respect to the evaluation metrics that the authors used. To the best of our knowledge, HDDT have not been applied to solve the link prediction problem. In this paper we compare C4.5 decision trees \cite{quinlan2014c4} which have been applied in \cite{Hasan06linkprediction} to solve the link prediction problem, and HDDT as proposed in \cite{Lichtenwalter:2010:NPM:1835804.1835837}. Our interest is to examine the performance of HDDT an C4.5 for the imbalance problem of link prediction. A discussion of C4.5 and HDDT can be found in Section \ref{Sect.4}. 
 
 %Under-sampling is used in both papers in order to solve the problem of class imbalance and decrease the size of the training sets. Additionally, in \cite{Lichtenwalter:2010:NPM:1835804.1835837}, the data set is constructed by considering the $n$-neighborhood of each node. Moreover, it is proposed to use a specific type of decision tree, called Hellinger Distance Decision Tree (HDDT) \cite{Cieslak2008, Cieslak2012}, that are very well suited for classification with imbalanced data. Although this recommendation is provided, the authors do not present results of this method. The contributions of this paper are as follows:
 
@@ -150,7 +153,7 @@ A method for dealing with imbalanced data sets is that of applying a specific ty
 %1- We will end-up explaining different concept of algorithms and machine learning tack ticks in order to perform (link-predict) the next link between to objects. 
 %2- We will spend some time experimenting with datasets to learn more about algorithms and perhaps finding differences or comparison between number of algorithms .   
 
-The paper is structured as follows. In Section \ref{Sect.2}, we formalize the link prediction problem. Specifically, we discuss the transformation of a network to a tabular data set, and the class imbalance problem. Related work is provided in Section \ref{Sect.3}. In Section \ref{Sect.4}, we describe the approaches that have been taken in \cite{Hasan06linkprediction, Lichtenwalter:2010:NPM:1835804.1835837}, and we also provide an analysis of HDDT and C4.5. Section \ref{Sect.5} describes the data sets and software in which the experiments and results of Section 6 are based on. Finally, we conclude in Section 7.  
+The paper is structured as follows. In Section \ref{Sect.2}, we formalize the link prediction problem. Specifically, we discuss the transformation of a network to a tabular data set, and the class imbalance problem. Related work is provided in Section \ref{Sect.3}. In Section \ref{Sect.4}, we describe the approaches that have been taken in \cite{Hasan06linkprediction, Lichtenwalter:2010:NPM:1835804.1835837}, and we also provide an analysis of HDDT and C4.5. Section \ref{Sect.5} describes the data sets and software in which the experiments and results of Section \ref{Sect.6} are based on. Finally, we conclude in Section \ref{Sect.7}.  
 
 %In the following sections we will be guiding you through number of problem sets; working with datasets; talking about finding similar or relevant papers; explaining or learning about different algorithms; Experiment and sharing results; sharing our thoughts and finishing things up with some discussions and conclusions  
 
@@ -166,9 +169,9 @@ In this paper, we approach the problem of link prediction using supervised learn
 \subsection{Constructing Data Sets}
 \label{Sect.2a}
 
-The process of constructing the train and test set is described in detail in \cite{Hasan06linkprediction, Lichtenwalter:2010:NPM:1835804.1835837}. In order to transform the network to a data set, we first choose two adjacent periods, the \textit{train} and \textit{test period}. In the train period, denoted by $[0,t_k]$, we have pairs of nodes that are connected, that is, they have some sort of association or connection. The same holds for the test period $[t_{k+1},t_l]$. We construct a new network $G_k = \langle V_k, E_k \rangle$ consisted of all pair of nodes that do not share a connection in the train period. We then examine whether or not they are connected in the test period. If they do, we assign to the pair a positive label, and otherwise a negative label. The data set contains $|V_k| \choose 2$ $-|E_k|$ instances, since we do not account for self-loops, and in undirected networks each pair is recorded once. 
+The process of constructing the data set is described in detail in \cite{Hasan06linkprediction, Lichtenwalter:2010:NPM:1835804.1835837}. In order to transform the network to a data set, we first choose two adjacent periods, the \textit{train} and \textit{test period}. In the train period, denoted by $[0,t_k]$, we have pairs of nodes that are connected, that is, they have some sort of association or connection. The same holds for the test period $[t_{k+1},t_l]$. We construct a new network $G_k = \langle V_k, E_k \rangle$ consisted of all pair of nodes that do not share a connection in the train period. We then examine whether or not they are connected in the test period. If they do, we assign to the pair a positive label, and otherwise a negative label. The data set contains $|V_k| \choose 2$ $-|E_k|$ instances, since we do not account for self-loops, and in undirected networks each pair is recorded once. 
 
-Selecting an appropriate set of features is one of the most important steps in supervised learning algorithms \cite{Hasan06linkprediction}. The inputs to the model are selected by calculating topology-based and domain specific metrics from $G_k$ that will serve as attributes to the data set. Such metrics are, but not limited to, \textit{common neighbors}, \textit{Jaccard coefficient}, \textit{Adamic Adar}, \textit{preferential attachment}, \textit{Katz} measure, \textit{Rooted PageRank}, and many others. \textcolor{red}{Section 6} provides definitions for the metrics used in our experiments. In the supervised case, we use state-of-the-art predictive models such as Neural Networks, Support Vector Machines, Decision Trees, and Random Forests that treat these individual metrics as inputs. The output or prediction of the model, is whether or not a link will form between two specific nodes. 
+Selecting an appropriate set of features is one of the most important steps in supervised learning algorithms \cite{Hasan06linkprediction}. The inputs to the model are selected by calculating topology-based and domain specific metrics from $G_k$ that will serve as attributes to the data set. Such metrics are, but not limited to, \textit{common neighbors}, \textit{Jaccard coefficient}, \textit{Adamic Adar}, \textit{preferential attachment}, \textit{Katz} measure, \textit{Rooted PageRank}, and many others. \ref{Sect.6} provides an explanation of the metrics used in our experiments. In the supervised case, we use state-of-the-art predictive models such as Neural Networks, Support Vector Machines, Decision Trees, and Random Forests that treat these individual metrics as inputs. The output or prediction of the model, is whether or not a link will form between two specific nodes. 
 
 That being said, we end up with a data set in the standard format $(\vec{x},y)$, where $\vec{x}$ are metrics extracted from $G_k$ and $y$ indicates the label, that is whether or not a pair of nodes is connected or not. 
 
@@ -178,11 +181,11 @@ Although we have constructed the data set, there are two main problems. The firs
 
 As we mentioned in Section \ref{Sect.1}, one of the main problems in link prediction is the imbalance between the positive and negative class. That is, the amount of instances in the constructed data set with a negative label is overwhelmingly greater than those with a positive label. 
 
-A technique called under-sampling provides a solution to the class imbalance problem. In under-sampling, we acquire a representative sample from the majority class that is more or less equal to the size of the minority class. In this way, we create a balanced data set comprised from the sample of the majority class and all instances of the minority class. We then say that the data set is under-sampled to balance. Note that, when a data set is under-sampled to balance it means that the ratio of positive and negative instances is 1:1. It is possible to under-sample the data set at different ratios. To see this, consider the case where the class imbalance is of size 1:20000 and the data set has 10 million instances. Training a model with this setup is a difficult task due to the huge size of the data set. In this case, it would be helpful to under-sample the data set to a ratio different than 1:1, for example to a ratio of 1:10. That is, we explicitly acquire a sample of the majority class that is ten times larger than that of minority's class. In this way, we decrease the size of the data set and we retain imbalanced classes.
+A technique called under-sampling provides a solution to the class imbalance problem. In under-sampling, we acquire a representative sample from the majority class that is more or less equal to the size of the minority class. In this way, we create a balanced data set comprised from the sample of the majority class and all instances of the minority class. We then say that the data set is under-sampled to balance. Note that, when a data set is under-sampled to balance it means that the ratio of positive and negative instances is 1:1. It is possible to under-sample the data set at different ratios. To see this, consider the case where the class imbalance is of size 1:5000 and the data set has 10 million instances. Training a model with this setup is a difficult task due to the huge size of the data set. In this case, it would be helpful to under-sample the data set to a ratio different than 1:1, for example to a ratio of 1:10. That is, we explicitly acquire a sample of the majority class that is ten times larger than that of minority's class. In this way, we decrease the size of the data set and we retain imbalanced classes.
 
 %One method consists of under sampling the data set to balance in order to create classes of almost the same size. In this way, the size of the training set decreases, and at the same time we obtain balanced classes in which we can fit ordinary predictive models such as, Decision Trees, Support Vector Machines, Neural Networks etc. Note that many of these models perform poorly in highly imbalanced data. 	 
 
-A second method that mitigates both problems of size and class imbalance is proposed in \cite{Lichtenwalter:2010:NPM:1835804.1835837}. As we mentioned in Section \ref{Sect.2a}, in the process of constructing the data set we consider each pair of nodes that do not exist in the train period as one that could potentially connect in the future. It is suggested to treat each neighborhood as a separate problem. We define the $n$-neighborhood of a node $v$ as the set of nodes that are 0 to $n$ steps away from $v$. Instead of considering all pairs of nodes to enter the data set, we choose for each node, and for a specified $n$, only those that belong to the $n$-neighborhood of the node. In this way, both the size of the data set and the imbalance between the classes decrease greatly. For the case of \texttt{MathOverflow} network, choosing $n=2$ results to a data set with more than 5 million instances of which only 3168 belong to the positive class, an imbalance of about 1:1695.
+A second method that mitigates both problems of size and class imbalance is proposed in \cite{Lichtenwalter:2010:NPM:1835804.1835837}. As we mentioned in Section \ref{Sect.2a}, in the process of constructing the data set we consider each pair of nodes that do not exist in the train period as one that could potentially connect in the future. It is suggested to treat each neighborhood as a separate problem. We define the $n$-neighborhood of a node $v$ as the set of nodes that are 0 to $n$ steps away from $v$. Instead of considering all pairs of nodes to enter the data set, we choose for each node, and for a specified $n$, only those that belong to the $n$-neighborhood of the node. In this way, both the size of the data set and the imbalance between the classes decrease greatly. For the case of \texttt{MathOverflow} network, choosing $n=2$ results to a data set with more than 5 million instances of which only 3168 belong to the positive class, an imbalance of more than 1:1578.
 
 %Furthermore, it is proposed to implement a particular type of decision trees, called Hellinger trees  \cite{Cieslak2008}, \cite{Cieslak2012}, without altering the distribution of the data, that is without under sampling. Hellinger trees use the Hellinger distance as splitting criterion, which is skew insensitive \cite{Cieslak2012}.
 
@@ -266,17 +269,17 @@ Consider $n$ observations of $p$ features $X_1, X_2,...X_p$, and a class variabl
 
 The question that we could ask regarding the construction of decision trees is how do we choose which of the features $X_i$, $i = 1,2,...,p$ will partition the $p$-dimensional space. It is reasonable that some features will provide better splits than others. The aim is to choose the feature that splits the parent node into two child nodes that are homogeneous or "pure", that is, each child node contains instances of only one class. This means that the feature we selected was able to discriminate well between the instances of the two classes. Each type of tree uses a different splitting criterion. C4.5 decision trees use the \textit{Gain Ratio} which is based on the calculation of entropy, whereas HDDT rely on \textit{Hellinger Distance}.
 
-The gain ratio, also called information gain, measures the gain in information by splitting the data using a specific feature. Features that result into "pure" or homogeneous splits yield higher values of gain ratio. Essentially, by increasing the gain ratio we achieve reduction in entropy. Entropy is a measure that calculates the impurity of an arbitrary collection of examples. It takes values in the interval $[0,1]$. High uncertainty corresponds to non-homogeneous splits in the two child nodes since we haven't discriminate well between the two classes, which results to higher values of entropy. In formal notation,
+The gain ratio, also called information gain, measures the amount of information we gain by splitting the data using a specific feature. Features that result into "pure" or homogeneous splits yield higher values of gain ratio. Essentially, by increasing the gain ratio we achieve reduction in entropy. Entropy is a measure that calculates the impurity of an arbitrary collection of examples. It takes values in the interval $[0,1]$. High uncertainty corresponds to non-homogeneous splits in the two child nodes since we do not discriminate well between the two classes, which results to higher values of entropy. In formal notation, the entropy of a set $S$ is given by
 
 \begin{equation*}
-	Entropy = -\sum_{k = 1}^{T}p_k \ log_2(p_k)
+	I(S) = -\sum_{k = 1}^{T}p_k \ log_2(p_k)
 \end{equation*}
 where $T$ is the number of classes ($T=2$ for binary classification), and $p_k$, $k = 1,2,...,T$ indicates the proportion of instances in class $k$. Using a specific feature $X_i$ for splitting the $p$-dimensional space, by calculating the entropy of the parent node, and subsequently the entropies of the resulted left and right child nodes, the gain ratio is calculated as 
 
 \begin{equation*}
-	Gain \ Ratio = Entropy(parent) - Entropy(child)
+	G(feature) = I(S) - \sum_{v}^{}\frac{|S_v|}{|S|}I(S_v)
 \end{equation*} 
-The result of Gain Ratio indicate the information we have gained by splitting the $p$-dimensional space using the selected feature. The feature that yields the largest value in gain ratio is chosen for the split.
+where $S$ indicates the parent node and $S_v$ the child node. The result of Gain Ratio indicate the information we have gained by splitting the $p$-dimensional space using the selected feature. Using a greedy search, we select feature that yields the largest value in gain ratio.
 
 \subsubsection{Splitting Criteria - Hellinger Distance}
 HDDT use the Hellinger Distance as a splitting criterion for the construction of the tree. Hellinger Distance is a measure of distributional divergence \cite{Cieslak2008}. Let $P$ and $Q$ be two distributions of normalized frequencies of feature values across classes. If there is no distinction between $P$ and $Q$, that is, if $P$ and $Q$ overlap then the Hellinger Distance between the two distributions is equal to 0. In case $P$ and $Q$ are completely disjoint, the distance takes its  maximum value, $\sqrt{2}$. Hellinger Distance is utilized as a splitting criterion in the following way. Consider two class distributions $X_+$ and $X_-$ containing the instances of the positive and negative class, respectively. For a specific feature $X_i$, $i = 1,2,...,p$, the Hellinger Distance is given by 
@@ -295,7 +298,7 @@ Almost all link prediction works need to verify their methods on the collected d
 
 %During scouting on the web for datasets we came across several useful datasets to which we think we can work with and produce some results with it. 
 
-A summary of the size of nodes and edges, along with the length of the timespan for the 5 social networks we consider can be found in \autoref{Table1}. We use three networks that come from the KONECT \footnote{\url{http://konect.uni-koblenz.de/networks/}} database. The first one is the \texttt{UCIrvine} \footnote{\url{http://konect.uni-koblenz.de/networks/opsahl-ucsocial}} \cite{opsahl2009clustering}, a directed network containing sent messages between the users of an on-line community of students from the University of California, Irvine. Next, \texttt{Digg} \footnote{\url{http://konect.uni-koblenz.de/networks/munmun_digg_reply}}\cite{de2009social} is a reply directed network of the social news website Digg where each node in the network is a user of the website, and each directed edge denotes that a user replied to another user. Furthermore, we use the \texttt{Slashdot} \footnote{\url{http://konect.uni-koblenz.de/networks/slashdot-threads}} \cite{gomez2008statistical}, a directed reply network of the technology website Slashdot, where nodes and edges represent users and replies, respectively. Moreover, we consider the \texttt{RealityCall} \footnote{\url{http://networkrepository.com/ia-reality-call.php}} \cite{eagle2006reality, nr} an undirected network that consists of human mobile phone call events between a small set of core users at the Massachusetts Institute of Technology (MIT) whom actually were assigned mobile phones for which all calls were collected. The network also contains edges between users that do not belong in the small set of users, who called other individuals that were not actively monitored. Therefore, some sort of noise might exist in this network, since we do not have more information about the individuals outside of the small set of MIT users. Finally, we consider the directed \texttt{MathOverflow} \footnote{\url{http://snap.stanford.edu/data/sx-mathoverflow.html}} \cite{Paranjape:2017:MTN:3018661.3018731} network, where a node represents a user, and an edge indicates that user $u$ answered user's $v$ question on the website. All five networks are well suited for the link prediction problem. This is due to the fact that the nature of these networks is the interaction of individuals and we expect that the current interactions form a base for the connections that will form in the near future. Hence, we learn the patterns from interactions taking place at time $[0,t]$, in order to predict future connections for $t' > t$.
+A summary of the size of nodes and edges, along with the length of the timespan for the 5 social networks we consider can be found in \autoref{Table1}. We use three networks that come from the KONECT \footnote{\url{http://konect.uni-koblenz.de/networks/}} database. The first one is \texttt{UCIrvine} \cite{opsahl2009clustering}, a directed network containing sent messages between the users of an on-line community of students from the University of California, Irvine. Next, \texttt{Digg} \cite{de2009social} is a reply directed network of the social news website Digg where each node in the network is a user of the website, and each directed edge denotes that a user replied to another user. Furthermore, we use \texttt{Slashdot} \cite{gomez2008statistical}, a directed reply network of the technology website Slashdot, where nodes and edges represent users and replies, respectively. Moreover, we consider \texttt{RealityCall} \cite{eagle2006reality, nr} from Networks Repository \footnote{\url{http://networkrepository.com/ia-reality-call.php}}, which is an undirected network of human mobile phone call events between a small set of core users at the Massachusetts Institute of Technology (MIT) whom actually were assigned mobile phones for which all calls were collected. The network also contains edges between users that do not belong in the small set of users, who called other individuals that were not actively monitored. Therefore, some sort of noise might exist in this network, since we do not have more information about the individuals outside of the small set of MIT users. Finally, we consider the directed \texttt{MathOverflow} network \cite{Paranjape:2017:MTN:3018661.3018731} that can be found on SNAP repository \footnote{\url{http://snap.stanford.edu/data/sx-mathoverflow.html}}. A node represents a user, and an edge indicates that user $u$ answered user's $v$ question on the website. All five networks are well suited for the link prediction problem. This is due to the fact that the nature of these networks is the interaction of individuals and we expect that the current interactions form a base for the connections that will form in the near future. Hence, we learn the patterns from interactions taking place at time $[0,t]$, in order to predict future connections for $t' > t$.
 
 \begin{table}
 	\centering
@@ -333,9 +336,9 @@ A summary of the size of nodes and edges, along with the length of the timespan 
 Although there are many link prediction metrics and methods proposed, only very few works open their source codes. Re-implementing methods and formulas to calculate predictors is a time-consuming process. Only few public tools try to integrate these metrics and methods such as \texttt{linkpred}\footnote{\url{https://github.com/rafguns/linkpred}} and \texttt{LPmade} \footnote{\url{https://github.com/rlichtenwalter/LPmade}} \cite{lichtenwalter2011lpmade} which both have a handful of link prediction metrics. \texttt{LPmade} is a cross-platform software solution that provides multi-core link prediction and related tasks and analysis \cite{lichtenwalter2011lpmade}. It is written in \texttt{C++} and therefore it is suited for handling very large networks. Unfortunately, compilation issues and furthermore the lack of documentation and support prevented us from using the software. Hence, we used a \texttt{Python} library called \texttt{linkpred}. The main disadvantage of \texttt{linkpred} is that it is entirely written \texttt{Python} and it can prove to be very slow for handling large networks.
 
 \section{Experiments and Results}
-
+\label{Sect.6}
 \subsection{Experimental Setup}
-We performed experiments in five social networks. The number of nodes, edges and the length of the timespan for each network can be found in \autoref{Table1}. All directed networks are converted to undirected, due to the limitations of \texttt{linkpred} library. The train set is constructed by considering the $n$-neighborhood size, where $n = 2$. For each network, we apply HDDT and C4.5 using the parameters proposed in \cite{Cieslak2012}. This setup consists of using bagging with 100 trees, un-collapsed, un-pruned, with Laplace smoothing at the leaves. Due to the huge size of the data sets, in order to be able to train decision trees but at the same time retain the imbalance, we under-sample the data sets to a ratio of 1:10. Hence, we acquire a sample from the majority class that is ten times larger than the number of instances of the minority class. This topic was also touched upon in Section \ref{Sect.2b}. We perform 10-fold cross validation with stratified sampling for creating the train and test sets for each fold. A modified version of the WEKA software \cite{witten2016data} is used that contains the implementation of HDDT, which can be found in \url{https://www3.nd.edu/~dial/software/}. 
+We performed experiments in five social networks. The number of nodes, edges and the length of the timespan for each network can be found in \autoref{Table1}. All directed networks are converted to undirected, due to the limitations of \texttt{linkpred} library. The train set is constructed by considering the $n$-neighborhood size, where $n = 2$. For each network, we apply HDDT and C4.5 using the parameters proposed in \cite{Cieslak2012}. This setup consists of using bagging with 100 trees, un-collapsed, un-pruned, with Laplace smoothing at the leaves. Due to the huge size of the data sets, in order to be able to train decision trees but at the same time retain the imbalance, we under-sample the data sets to specified ratios. Specifically, we under-sample the larger networks \texttt{Digg, MathOverflow} and \texttt{SlashDot} to 1:10 ratio. Furthermore, we under-sample the smaller \texttt{UCIrvine} network to 1:10 and 1:60. From now on we will refer to them as \texttt{UCIrvine10} and \texttt{UCIrvine60}, respectively. Finally, due to the fact that \texttt{RealityCall} has only 56 positive instances, we can under-sample the data set to more extreme ratios. For \texttt{RealityCall} we use two versions, one under-sampled to 1:10 and the second to 1:600. We refer to them as \texttt{RealityCall10} and \texttt{RealityCall600}. In our experiments we also examine how the accuracy of the classifiers change when we move from smaller ratios of imbalance to larger ones. We perform 10-fold cross validation with stratified sampling for creating the train and test sets for each fold. A modified version of the WEKA software \cite{witten2016data} is used that contains the implementation of HDDT, which can be found in \url{https://www3.nd.edu/~dial/software/}. 
 
 \subsection{Evaluation}
 We evaluate the classifiers using the Receiver Operating Characteristic (ROC) curve and the Precision-Recall (PR) curve. The Area Under ROC (AUROC) metric is also provided, which quantifies the performance of a classifier. The main advantage of ROC and PR curve over single metrics such as accuracy is that they evaluate the classifier over all possible thresholds, whereas accuracy is specified only for a specific threshold. 
@@ -349,8 +352,131 @@ In all experiments we have calculated seven node-based and one path-based metric
 
 \subsection{Results}
 
+\autoref{UCIrvine10} to \autoref{RealityCall600} illustrate the resulting ROC and PR curves for the five networks. C4.5 corresponds to the red curve, whereas HDDT to the black curve. Both types of trees exhibited similar performance in all networks. A more detailed comparison can be found in \autoref{Table2} where the AUROC metric is presented. HDDT out performed C4.5 in \texttt{SlashDot} and \texttt{RealityCall10}, that is \texttt{RealityCall} under-sampled to 1:10 ratio. Note that the results of AUROC have not been tested for statistical significance as in the case of \cite{Cieslak2012}. That is, since the AUROC for both type of trees are very close to each other, the differences between them might be due to randomness.
 
-\section{Conclusions}
+It is clear that both classifiers perform from average to very good in the ROC space, while they perform poorly to average in the PR space, except in the case of \texttt{RealityCall10} where high precision can be observed. The poorest performance can be observed in \texttt{UCIrvine60} where the AUROC is about 0.77, and the highest precision is almost 0.25 which is achieved for low values of recall. Both classifiers performed better on \texttt{Digg} and \texttt{MathOverflow} with AUROC at about 0.81 and 0.8655 respectively. Nevertheless, precision is still relatively low for the different values of recall. For \texttt{SlashDot}, the resulting AUROC is about 0.9075, with a small improvement in precision. Both classifiers performed very good in \texttt{RealityCall10} network in the case of 1:10 ratio. Finally, in the more extreme case of 1:600, the recall of the ROC curve changes slightly, whereas the precision deteriorates significantly.
+
+An insight that we can derive by examining the plots is that, the ROC curve seems to be insensitive as the imbalance of classes becomes larger. This is clear in \texttt{UCIrvine} and \texttt{RealityCall}. As we increased the imbalance from 1:10 to 1:60, and 1:10 to 1:600 respectively, we observe minor differences in ROC, while the results of PR differ significantly. The PR curve provides useful information as a supplementary metric to ROC. The use of PR curve is very important to consider as an evaluation of a classifier, a consideration that is not always taken into account in many studies that deal with imbalanced data.
+% A second insight is that, in networks such as \texttt{SlashDot} and \texttt{RealityCall} where the results of both ROC and PR curve improve, HDDT outperforms C4.5. Hence, it might be the case that Hellinger Distance performs better in imbalanced data when there is not great overlapping of the positive and negative distributions.
+
+The results of the ROC and PR curves indicate that both classifiers yield few \textit{FN} due to high recall, but a lot of \textit{FP} because of low precision. Thus, the probability of classifying an instance correctly as positive, given that it is positive is relatively high, but the probability of classifying an instance correctly as positive given that it was predicted as such, is relatively low. Whether or not the performance of a classifier is considered acceptable is usually domain specific. For example, when dealing with a terrorist network where the main focus is to not miss links that will form in the future, a metric such as recall would be more appropriate than precision. This is because high recall values will result to less \textit{FN}, that is, less instances of the positive class will be classified as negatives. In other cases where \textit{FP} are very important, the PR curve would be more informative.
+
+By examining the top nodes of the resulting trees, we get an indication of which features were the most prominent in the construction of the tree. \autoref{feature_importance} illustrates those features for both HDDT and C4.5. \textit{Association Strength} was the most prominent feature in most networks. The features are displayed with respect to importance in descending order. The less important feature is \textit{Minimum Overlap}.
+
+\begin{table}
+	\centering
+	\scalebox{0.9}{
+		\begin{tabular}{ c c c}
+			& \textsc{HTree} & \textsc{C4.5}\\
+			\toprule
+			\multirow{4}{*}{\texttt{UCIrvine10}} & Association Strength & Association Strength\\
+			& Rooted pageRank & Rooted pageRank \\
+			& NMeasure  & Resource Allocation\\
+			& Resource Allocation & Minimum Overlap\\ 
+			\midrule
+			\multirow{4}{*}{\texttt{UCIrvine60}} & Association Strength & Association Strength\\
+			& Rooted pageRank & Resource Allocation \\
+			& Minimum Overlap  & Jaccard Coefficient\\
+			& Resource Allocation & Common Neighbors\\ 
+			\midrule
+			\multirow{4}{*}{\texttt{Digg}} & Association Strength & Association Strength \\
+			& Nmeasure & Miminum Overlap\\
+			& Adamic Adar & Rooted pageRank\\
+			& & NMeasure\\
+			\midrule
+			\multirow{4}{*}{\texttt{MathOverflow}} & Adamic Adar & Common Neighbors \\
+			& Association Strength & Association Strength\\
+			& Resource Allocation & Rooted pageRank\\
+			& & Adamic Adar\\
+			\midrule
+			\multirow{5}{*}{\texttt{SlashDot}} & Association Strength & Association Strength\\
+			& Common Neighbors & Common Neighbors\\
+			& NMeasure & NMeasure\\
+			& Adamic Adar & Rooted pageRank\\
+			& & Jaccard Coefficient\\
+			\midrule
+			\multirow{3}{*}{\texttt{RealityCall}} & Association Strength & Association Strength\\
+			& Adamic Adar & Jaccard coefficient\\
+			& Jaccard Coefficient & Adamic Adar\\
+			\midrule
+			\multirow{3}{*}{\texttt{RealityCall600}} & Association Strength & Association Strength \\
+			& Rooted pageRank & Adamic Adar\\
+			& Adamic Adar & Rooted pageRank\\
+			\midrule
+	\end{tabular}}
+	\caption{Most important features as indicated by the top nodes of the decision tree.}
+	\label{feature_importance}
+\end{table}
+	
+\begin{figure*}
+	\begin{multicols}{2}
+		\includegraphics[width=\linewidth]{UC_Irvine_ROC_1_10}\par 
+		\includegraphics[width=\linewidth]{UC_Irvine_PR_1_10}\par 
+	\end{multicols}
+	\caption{\texttt{UCIrvine}, ratio 1:10}
+	\label{UCIrvine10}
+	\begin{multicols}{2}
+		\includegraphics[width=\linewidth]{UC_Irvine_ROC_1_60}\par 
+		\includegraphics[width=\linewidth]{UC_Irvine_PR_1_60}\par 
+	\end{multicols}
+	\caption{\texttt{UCIrvine}, ratio 1:60}
+	\label{UCIrvine60}
+	\begin{multicols}{2}
+		\includegraphics[width=\linewidth]{DiggNetwork_ROC}\par
+		\includegraphics[width=\linewidth]{DiggNetwork_PR}\par
+	\end{multicols}
+	\caption{\texttt{Digg}, ratio 1:10}
+	\label{Digg}
+	\begin{multicols}{2}
+		\includegraphics[width=\linewidth]{MathOverflow_ROC}\par
+		\includegraphics[width=\linewidth]{MathOverflow_PR}\par
+	\end{multicols}
+	\caption{\texttt{MathOverflow}, ratio 1:10}
+	\label{MathOverflow}
+	\begin{multicols}{2}
+		\includegraphics[width=\linewidth]{SlashDot_ROC}\par
+		\includegraphics[width=\linewidth]{SlashDot_PR}\par
+	\end{multicols}
+	\caption{\texttt{SlashDot}, ratio 1:10}
+	\label{SlashDot}
+	\begin{multicols}{2}
+		\includegraphics[width=\linewidth]{RealityMining_ROC_1_10}\par
+		\includegraphics[width=\linewidth]{RealityMining_PR_1_10}\par
+	\end{multicols}
+	\caption{\texttt{RealityCall}, ratio 1:10}
+	\label{RealityCall10}
+\end{figure*}
+
+\begin{figure*}
+	\begin{multicols}{2}
+	\includegraphics[width=\linewidth]{RealityMining_ROC_1_600}\par
+	\includegraphics[width=\linewidth]{RealityMining_PR_1_600}\par
+\end{multicols}
+\caption{\texttt{RealityCall}, ratio 1:600}
+\label{RealityCall600}
+\end{figure*}
+
+\begin{table}
+	\centering
+	\begin{tabular}{c c c}
+		& HDDT & C4.5\\
+		\toprule
+		\texttt{UCIrvine10} & 0.7898 & \textbf{0.7912}\\
+		\texttt{UCIrvine60} & 0.7712 & \textbf{0.7726}\\
+		\texttt{Digg} & 0.8176 & \textbf{0.8185}\\
+		\texttt{MathOverflow} & 0.8655 & 0.8655\\
+		\texttt{SlashDot} & \textbf{0.9075} & 0.9074 \\
+		\texttt{RealityCall10} & \textbf{0.9893} & 0.9888\\
+		\texttt{RealityCall600} & 0.9783 & \textbf{0.9814}\\
+	\end{tabular}
+	\caption{AUROC for HDDT and C4.5}
+	\label{Table2}
+\end{table}
+
+\section{Conclusions and Future Work}
+\label{Sect.7}
+In this paper we compared HDDT and C4.5 in 5 imbalanced data sets constructed from social networks. We evaluate both trees using ROC and PR curves. Both HDDT and C4.5 exhibited similar performance. One of the main findings is that the higher the imbalance the lower the precision of the PR curve. On the other hand, the recall of the ROC curve is not influenced heavily. Thus, our findings indicate that applying as the imbalance of increases, both HDDT and C4.5 yield lower precision, that is large number of \textit{FP}, but high recall, in other words, small number of \textit{FN}. Regarding the baseline predictors that we used in our experiments, by examining the top nodes of the constructed trees, we found that \textit{Associaton Strength} was usually the most important feature. Our experiments were restricted to a number of chosen parameters such as the $n$-neighborhood size, where $n=2$. Furthermore, we under-sample the data into different ratios of imbalance in order to be able to train decision trees but at the same time retain the imbalance of the data sets. Further research needs to be done in order to examine the effect of choosing different predictors and the number of $n$-size neighborhood. Finally, different under and over-sampling techniques could be used in order to improve the predictions of classifiers.
+
 \bibliographystyle{abbrv}
 \bibliography{snacspaper}  % sigproc.bib is the name of the Bibliography in this case
 
